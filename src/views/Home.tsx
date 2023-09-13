@@ -1,3 +1,6 @@
+import { Carousel } from 'antd';
+import RegisterDrawer from '../components/RegisterDrawer'
+
 
 type homeProps = {
 
@@ -5,7 +8,7 @@ type homeProps = {
 
 const Home = (props: homeProps) => {
   return (
-    <div>Home</div>
+    <RegisterDrawer />
   )
 }
 export default Home

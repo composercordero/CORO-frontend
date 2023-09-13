@@ -4,14 +4,15 @@ import {
     ConductorType, 
     ChoirType, 
     HymnType, 
-    OrganizationType 
+    OrganizationType,
+    ServiceType
 } from '../types'
 
 const base: string = 'http://localhost:8080/api'
 
 // URL to access the api
 const userEndpoint: string = '/user';
-const loginEndpoint: string = '/login';
+// const loginEndpoint: string = '/login';
 const tokenEndpoint: string = '/token';
 const addressEndpoint: string = '/address';
 const organizationEndpoint: string = '/orgs';
@@ -299,11 +300,11 @@ async function programHymn(token:string, hymnId:string|number, serviceId:string|
 
 // EDIT PROGRAM HYMN ------------------------------------------------------------------
 
-async function editProgramHymn(token:string, hymnId:string|number, serviceId:string|number): Promise<APIResponse<ChoirType>>{
+async function editProgramHymn(token:string, programId:string|number): Promise<APIResponse<ChoirType>>{
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).delete(programEndpoint + '/' + serviceId + '/' + hymnId);
+        const response = await apiClientTokenAuth(token).delete(programEndpoint + '/' + programId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){

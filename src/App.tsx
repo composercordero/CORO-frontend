@@ -90,8 +90,12 @@ function App() {
 
       {message && <AlertMessage category={category!} message={message} flashMessage={flashMessage}/>}
 
-        <Header handleCollapsed={handleCollapsed} collapsed={collapsed}/>
-
+        <Header handleCollapsed={handleCollapsed} collapsed={collapsed} />
+          <Layout 
+            style={{
+              padding:25,
+              backgroundColor: '#9e1068', 
+              borderTopLeftRadius: '50px'}}>
           <Routes>
 
             <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} /> }></Route>
@@ -99,9 +103,9 @@ function App() {
             <Route path='/login' element={<Login isLoggedI = {isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage} />}></Route>
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
-
+            
           </Routes>
-
+          </Layout>
       </Layout>
     </Layout>
     </>)
