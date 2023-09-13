@@ -6,7 +6,7 @@ import Home from './views/Home'
 import Dashboard from './views/Dashboard'
 import Login from './views/Login'
 // Import Components
-import { Layout } from "antd";
+import { Layout, ConfigProvider } from "antd";
 import Navigation from "./components/global/Navigation";
 import AlertMessage from "./components/global/AlertMessage";
 // Import Globals
@@ -15,6 +15,7 @@ import Header from './components/global/Header'
 import { CategoryType, ChoirType, ConductorType, HymnType, OrganizationType} from "./types";
 // Import apiWrapper Functions
 import { getMe } from './lib/apiWrapper';
+import './index.css'
 
 function App() {
 
@@ -82,11 +83,19 @@ function App() {
 
 
   return (<>
-    <Layout >
+    <ConfigProvider
+      theme={{
+        components: {
+          Button: { colorPrimary: '#272829', algorithm: true,},
+          Menu: { colorBgContainer:'transparent', colorText:'#fff'},
+        },
+      }}
+    >
+    <Layout style={{ backgroundColor: '#272829', }}>
 
       <Navigation nav={nav} collapsed={collapsed} isLoggedIn={isLoggedIn} logUserOut = {logUserOut}/>
 
-      <Layout className="site-layout">
+      <Layout style={{ backgroundColor: '#272829', }}>
 
       {message && <AlertMessage category={category!} message={message} flashMessage={flashMessage}/>}
 
@@ -94,13 +103,13 @@ function App() {
           <Layout 
             style={{
               padding:25,
-              backgroundColor: '#9e1068', 
+              backgroundColor: '#CD5888', 
               borderTopLeftRadius: '50px'}}>
           <Routes>
 
-            <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} /> }></Route>
+            <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} logUserIn={logUserIn}/> }></Route>
 
-            <Route path='/login' element={<Login isLoggedI = {isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage} />}></Route>
+            <Route path='/login' element={<Login isLoggedIn = {isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage} />}></Route>
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
             
@@ -108,6 +117,7 @@ function App() {
           </Layout>
       </Layout>
     </Layout>
+    </ConfigProvider>
     </>)
 }
 

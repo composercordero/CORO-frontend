@@ -21,7 +21,7 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
     return(<>
             <Affix offsetTop={0}>
             <Sider 
-                style={{ overflow: 'auto', position: 'sticky', height: '100vh', backgroundColor: 'none' }}
+                style={{ overflow: 'auto', position: 'sticky', height: '100vh', background: 'none' }}
                 trigger={null} 
                 collapsible 
                 collapsed={collapsed}>
@@ -37,7 +37,6 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                 <Menu
                     mode="inline"
                     defaultSelectedKeys={['1']}
-                    style={{ backgroundColor: 'none'}}
                     items={[
                     { key: '/dashboard', icon: <HomeOutlined />, label: 'Dashboard', },
                     { key: '/info', icon: <InfoCircleOutlined />, label: 'Programming', },

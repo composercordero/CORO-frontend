@@ -12,10 +12,9 @@ type headerProps = {
 const Header = ({handleCollapsed, collapsed}: headerProps) => {
 
   const { Header } = Layout;
-  const {token: { colorBgContainer },} = theme.useToken();
   
   return (
-    <Header style={{ padding: 0, background: 'none' }}>
+    <Header style={{ padding: 0, background: '#272829'}}>
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

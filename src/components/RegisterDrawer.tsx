@@ -1,19 +1,62 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd';
 import ConductorType from '../types/ConductorType';
+import CategoryType from '../types/CategoryType';
+import {createUser, loginUser} from '../lib/apiWrapper'
 
 type registerProps = {
-
+    isLoggedIn: boolean,
+    loggedInUser: ConductorType|null,
+    flashMessage: (message:string|null, category: CategoryType|null) => void,
+    logUserIn:(user:ConductorType) => void
 }
-const RegisterDrawer = (props: registerProps) => {
+const RegisterDrawer = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: registerProps) => {
 
-const [open, setOpen] = useState(false);
-const { Option } = Select;
-const [form] = Form.useForm();
+    const navigate = useNavigate();
 
-const showDrawer = () => { setOpen(true); };
-const onClose = () => { setOpen(false); };
+    // FORM DATA -------------------------------------------
+    const [userFormData, setUserFormData] = useState<Partial<ConductorType>>(
+        {
+            id:0,
+            firstName :'',
+            lastName :'',
+            username :'',
+            email :'',
+            password :'',
+            date_created:'',
+            token:'',
+            tokenExpiration:'',
+        }
+    );
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setUserFormData({...userFormData, [e.target.name]: e.target.value})
+    }
+
+    const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
+        e.preventDefault();
+        let response = await createUser(userFormData)
+        if (response.error){
+            flashMessage(response.error, 'error')
+        } else {
+            const newUser = response.data
+            let loginResponse = await loginUser(userFormData.username!, userFormData.password!)
+            localStorage.setItem('token', loginResponse.data?.token!)
+            localStorage.setItem('tokenExp', loginResponse.data?.tokenExpiration!)
+            logUserIn(newUser!);
+            navigate('/dashboard')
+        }
+    }
+
+    // DRAWER -------------------------------------------
+    const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
+
+    const showDrawer = () => { setOpen(true); };
+    const onClose = () => { setOpen(false); };
 
 return (<>
     
@@ -39,7 +82,7 @@ return (<>
     <Form 
     form={form}
     name="register"
-    onFinish={handleSubmitForm}
+    onFinish={handleFormSubmit}
     layout="vertical">
         
         <Row gutter={16}>
@@ -49,7 +92,11 @@ return (<>
             label="First Name"
             rules={[{ required: true, message: 'Please enter user name' }]}
             >
-            <Input placeholder="Please enter your name" />
+            <Input 
+                placeholder="Please enter your name"
+                onChange={handleInputChange} 
+                value={userFormData.firstName} 
+            />
             </Form.Item>
         </Col>
         <Col span={12}>
@@ -58,7 +105,11 @@ return (<>
             label="Last Name"
             rules={[{ required: true, message: 'Please enter user name' }]}
             >
-            <Input placeholder="Please enter your name" />
+            <Input 
+                placeholder="Please enter your name" 
+                onChange={handleInputChange} 
+                value={userFormData.lastName}
+            />
             </Form.Item>
         </Col>
         </Row>
@@ -71,7 +122,9 @@ return (<>
             rules={[{ required: true, message: 'Please input your password!', },]}
             hasFeedback
             >
-            <Input.Password />
+            <Input.Password 
+                onChange={handleInputChange} 
+                value={userFormData.password}/>
             </Form.Item>
         </Col>
         <Col span={12}>
@@ -104,7 +157,10 @@ return (<>
             rules={[ { type: 'email', message: 'The input is not valid E-mail!', },
             { required: true, message: 'Please input your E-mail!', }, ]}
             >
-            <Input />
+            <Input 
+                onChange={handleInputChange} 
+                value={userFormData.email}
+            />
             </Form.Item>
         </Col>
         <Col span={12}>
@@ -136,7 +192,10 @@ return (<>
             label="Username"
             rules={[{ required: true, message: 'Please enter username' }]}
             >
-            <Input placeholder="Please enter your username" />
+            <Input placeholder="Please enter your username" 
+                onChange={handleInputChange} 
+                value={userFormData.username}
+            />
             </Form.Item>
         </Col>
         </Row>

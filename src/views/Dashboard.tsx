@@ -1,10 +1,10 @@
-
+import CategoryType from "../types/CategoryType"
 
 type dashboardProps = {
-
+  flashMessage: (message:string|null, category: CategoryType|null) => void,
 }
 
-const Dashboard = (props: dashboardProps) => {
+const Dashboard = (flashMessage: dashboardProps) => {
   return (
     <div>Dashboard</div>
   )

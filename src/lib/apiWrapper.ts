@@ -1,12 +1,11 @@
 import axios from 'axios';
-import { 
-    AddressType,
-    ConductorType, 
-    ChoirType, 
-    HymnType, 
-    OrganizationType,
-    ServiceType
-} from '../types'
+// import types
+import AddressType from '../types/AddressType';
+import ConductorType from '../types/ConductorType';
+import ChoirType from '../types/ChoirType';
+import HymnType from '../types/HymnType';
+import OrganizationType from '../types/OrganizationType';
+// import ServiceType from '../types/ServiceType';
 
 const base: string = 'http://localhost:8080/api'
 
@@ -190,11 +189,11 @@ async function editOrganizationById(token:string, organizationId:string|number, 
 
 // DELETE ORGANIZATION BY ID ------------------------------------------------------------------
 
-async function deleteOrganizationById(token:string, organizationId:string|number, editedOrganizationData:OrganizationType): Promise<APIResponse<OrganizationType>>{
+async function deleteOrganizationById(token:string, organizationId:string|number): Promise<APIResponse<OrganizationType>>{
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).delete(organizationEndpoint + '/' + organizationId, editedOrganizationData);
+        const response = await apiClientTokenAuth(token).delete(organizationEndpoint + '/' + organizationId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){
@@ -244,11 +243,11 @@ async function editChoirById(token:string, choirId:string|number, editedChoirDat
 
 // DELETE CHOIR BY ID ------------------------------------------------------------------
 
-async function deleteChoirById(token:string, choirId:string|number, editedChoirData:ChoirType): Promise<APIResponse<ChoirType>>{
+async function deleteChoirById(token:string, choirId:string|number): Promise<APIResponse<ChoirType>>{
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).delete(choirsEndpoint + '/' + choirId, editedChoirData);
+        const response = await apiClientTokenAuth(token).delete(choirsEndpoint + '/' + choirId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){
