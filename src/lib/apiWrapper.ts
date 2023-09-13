@@ -59,11 +59,11 @@ async function createUser(newUserData:Partial<ConductorType>):Promise<APIRespons
 
 // LOGIN USER ------------------------------------------------------------------
 
-async function loginUser(name:string, password:string):Promise<APIResponse<TokenType>> {
+async function loginUser(username:string, password:string):Promise<APIResponse<TokenType>> {
     let error;
     let data;
     try{
-        const response = await apiClientBasicAuth(name, password).get(tokenEndpoint)
+        const response = await apiClientBasicAuth(username, password).get(tokenEndpoint)
         data = response.data
     } catch(err) {
         if (axios.isAxiosError(err)){

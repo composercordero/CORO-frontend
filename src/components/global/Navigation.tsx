@@ -27,7 +27,7 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                 collapsed={collapsed}>
             <Space direction="horizontal" style={{width: '100%', justifyContent: 'center'}}>
 
-            <Typography.Title level={1} magenta-1 style={{ margin: 10, color:'#fff0f6' }}>
+            <Typography.Title level={1} magenta-1 style={{ margin: 10, color:'#fff0f4' }}>
                 CORO
             </Typography.Title>
             </Space>

@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 // Import Views
 import Home from './views/Home'
 import Dashboard from './views/Dashboard'
-import Login from './views/Login'
+import Login from './components/LoginDrawer'
 // Import Components
 import { Layout, ConfigProvider } from "antd";
 import Navigation from "./components/global/Navigation";
@@ -15,7 +15,6 @@ import Header from './components/global/Header'
 import { CategoryType, ChoirType, ConductorType, HymnType, OrganizationType} from "./types";
 // Import apiWrapper Functions
 import { getMe } from './lib/apiWrapper';
-import './index.css'
 
 function App() {
 
@@ -24,6 +23,7 @@ function App() {
 
   const nav = (key:string): void => {
     key === '/logout' ? logUserOut():
+    // key === '/login' ? logUserOut():
     navigate(key)}
 
   // MENU COLLAPSING 
@@ -93,7 +93,7 @@ function App() {
     >
     <Layout style={{ backgroundColor: '#272829', }}>
 
-      <Navigation nav={nav} collapsed={collapsed} isLoggedIn={isLoggedIn} logUserOut = {logUserOut}/>
+      <Navigation nav={nav} collapsed={collapsed} isLoggedIn={isLoggedIn} />
 
       <Layout style={{ backgroundColor: '#272829', }}>
 
@@ -102,14 +102,13 @@ function App() {
         <Header handleCollapsed={handleCollapsed} collapsed={collapsed} />
           <Layout 
             style={{
-              padding:25,
+              padding:50,
+              margin:0,
               backgroundColor: '#CD5888', 
               borderTopLeftRadius: '50px'}}>
           <Routes>
 
             <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} logUserIn={logUserIn}/> }></Route>
-
-            <Route path='/login' element={<Login isLoggedIn = {isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage} />}></Route>
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
             

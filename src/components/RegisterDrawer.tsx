@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd';
+import { Button, Col, Drawer, Form, Input, Row, Space, Layout } from 'antd';
 import ConductorType from '../types/ConductorType';
 import CategoryType from '../types/CategoryType';
 import {createUser, loginUser} from '../lib/apiWrapper'
@@ -73,7 +73,7 @@ return (<>
     extra={
         <Space>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onClose} type="primary">
+        <Button onClick={handleFormSubmit} type="primary">
             Submit
         </Button>
         </Space>
