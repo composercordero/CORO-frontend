@@ -16,7 +16,6 @@ import { CategoryType, ChoirType, ConductorType, HymnType, OrganizationType} fro
 // Import apiWrapper Functions
 import { getMe } from './lib/apiWrapper';
 
-
 function App() {
 
   // NAVIGATION ----------------------------------------------
@@ -94,7 +93,7 @@ function App() {
         <Header handleCollapsed={handleCollapsed} collapsed={collapsed}/>
 
           <Routes>
-            
+
             <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} /> }></Route>
 
             <Route path='/login' element={<Login isLoggedI = {isLoggedIn} logUserIn={logUserIn} flashMessage={flashMessage} />}></Route>

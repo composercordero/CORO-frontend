@@ -59,7 +59,7 @@ async function createUser(newUserData:Partial<ConductorType>):Promise<APIRespons
 
 // LOGIN USER ------------------------------------------------------------------
 
-async function loginUser(name:string, password:string):Promise<APIResponse<ConductorType>> {
+async function loginUser(name:string, password:string):Promise<APIResponse<TokenType>> {
     let error;
     let data;
     try{

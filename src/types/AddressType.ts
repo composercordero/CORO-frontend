@@ -1,11 +1,11 @@
-type OrganizationType = {
+type AddressType = {
     id:number,
     name:string,
     phone:string,
     email:string,
     website:string,
     conductor_id:number,
-    // choir?:string,
+    choir?:string,
 }
 
-export default OrganizationType
+export default AddressType
