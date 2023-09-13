@@ -279,11 +279,13 @@ async function createHymnById(token:string, hymnId:string|number, newHymnData:Hy
 
 // PROGRAM HYMN ------------------------------------------------------------------
 
-async function editHymnById(token:string, hymnId:string|number, editedHymnData:ChoirType): Promise<APIResponse<ChoirType>>{
+async function programHymn(token:string, hymnId:string|number, serviceId:string|number): Promise<APIResponse<ChoirType>>{
+// NOT SURE ABOUT THE RETURN TYPE
+
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).put(hymnsEndpoint + '/' + hymnId, editedHymnData);
+        const response = await apiClientTokenAuth(token).post(programEndpoint + '/' + serviceId + '/' + hymnId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){
@@ -296,6 +298,22 @@ async function editHymnById(token:string, hymnId:string|number, editedHymnData:C
 }
 
 // EDIT PROGRAM HYMN ------------------------------------------------------------------
+
+async function editProgramHymn(token:string, hymnId:string|number, serviceId:string|number): Promise<APIResponse<ChoirType>>{
+    let error;
+    let data;
+    try {
+        const response = await apiClientTokenAuth(token).delete(programEndpoint + '/' + serviceId + '/' + hymnId);
+        data = response.data
+    } catch(err){
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return {error,data}
+}
 
 export {
 
