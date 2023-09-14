@@ -116,7 +116,7 @@ function App() {
             
             <Route path='/contact' element={<Contact flashMessage = {flashMessage}/> }></Route>
 
-            <Route path='/programming' element={<Programming /> }></Route>
+            <Route path='/programming' element={<Programming loggedInUser = {loggedInUser}/>}></Route>
 
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>

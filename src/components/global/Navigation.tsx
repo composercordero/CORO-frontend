@@ -2,7 +2,10 @@ import {
     HeartOutlined,
     HomeOutlined,
     InfoCircleOutlined,
-    DeleteOutlined,
+    BookOutlined,
+    GithubOutlined,
+    LinkedinOutlined,
+
 } from '@ant-design/icons';
 import { Affix, Layout, Menu, Space, Typography, theme } from 'antd';
 
@@ -14,7 +17,6 @@ type navigationProps ={
 
 export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps) {
 
-    const {token: { colorBgContainer},} = theme.useToken();
     const {Sider} = Layout;
 
     return(<>
@@ -24,12 +26,13 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                 trigger={null} 
                 collapsible 
                 collapsed={collapsed}>
+            <Space style={{flexDirection: 'column', justifyContent: 'space-between', height: '100vh'}}>
+            <Space direction="vertical" style={{width: '100%', justifyContent: 'center'}}>
             <Space direction="horizontal" style={{width: '100%', justifyContent: 'center'}}>
-
             <Typography.Title level={1} style={{ margin: 10, color:'#fff0f4' }}>
                 CORO
             </Typography.Title>
-            </Space>
+            </ Space>
 
                 { isLoggedIn ? 
                 (<>
@@ -39,8 +42,8 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                     items={[
                     { key: '/dashboard', icon: <HomeOutlined />, label: 'Dashboard', },
                     { key: '/programming', icon: <InfoCircleOutlined />, label: 'Programming', },
-                    { key: '/database', icon: <HeartOutlined />, label: 'My Hymns', },
-                    { key: '/search', icon: <DeleteOutlined />, label: 'Search Hymns', },
+                    { key: '/database', icon: <BookOutlined />, label: 'My Library', },
+                    { key: '/contact', icon: <HeartOutlined />, label: 'Contact', },
                     { key: '/logout', icon: <InfoCircleOutlined />, label: 'Logout', },
                     ]}
                     onClick = {({key}) => {nav(key)}}
@@ -55,14 +58,27 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                     items={[
                         { key: '/', icon: <HomeOutlined />, label: 'Register/login', },
                         { key: '/about', icon: <HeartOutlined />, label: 'About', },
-                        { key: '/contact', icon: <InfoCircleOutlined />, label: 'Contact', },
+                        { key: '/contact', icon: <HeartOutlined />, label: 'Contact', },
+                        
+
                     
                     ]}
                     onClick = {({key}) => {nav(key)}}
                 />
                 </>)
             }
+            </Space>
+
+            <Space style={{justifyContent:'end', color:'#fff0f4'}}>
+                <Typography.Paragraph style={{ margin: 10, color:'#fff0f4' }} >Created by Carlos</Typography.Paragraph>
+                <GithubOutlined />
+                <LinkedinOutlined />
+
+            </Space>
+            </Space>
             </Sider>
             </Affix>
+
+
     </>)
 }

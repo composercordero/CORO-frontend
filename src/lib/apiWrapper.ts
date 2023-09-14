@@ -5,6 +5,7 @@ import ConductorType from '../types/ConductorType';
 import ChoirType from '../types/ChoirType';
 import HymnType from '../types/HymnType';
 import OrganizationType from '../types/OrganizationType';
+import HymnDataType from '../types/HymnData';
 // import ServiceType from '../types/ServiceType';
 
 const base: string = 'http://localhost:8080/api'
@@ -118,6 +119,24 @@ async function getMe(token:string): Promise<APIResponse<ConductorType>> {
     let data;
     try{
         const response = await apiClientTokenAuth(token).get(userEndpoint + '/me');
+        data = response.data
+    } catch(err) {
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return {error, data}
+}
+
+// GET USER PROGRAMS ------------------------------------------------------------------
+
+async function getUserPrograms(token:string): Promise<APIResponse<HymnDataType[]>> {
+    let error;
+    let data;
+    try{
+        const response = await apiClientTokenAuth(token).get(userEndpoint + '/programs');
         data = response.data
     } catch(err) {
         if (axios.isAxiosError(err)){
@@ -261,11 +280,11 @@ async function deleteChoirById(token:string, choirId:string|number): Promise<API
 
 // CREATE HYMN BY ID ------------------------------------------------------------------
 
-async function createHymnById(token:string, hymnId:string|number, newHymnData:HymnType): Promise<APIResponse<HymnType>>{
+async function createHymnById(token:string, hymnId:string|number): Promise<APIResponse<HymnType>>{
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).put(hymnsEndpoint + '/' + hymnId, newHymnData);
+        const response = await apiClientTokenAuth(token).put(hymnsEndpoint + '/' + hymnId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){
@@ -279,7 +298,7 @@ async function createHymnById(token:string, hymnId:string|number, newHymnData:Hy
 
 // PROGRAM HYMN ------------------------------------------------------------------
 
-async function programHymn(token:string, hymnId:string|number, serviceId:string|number): Promise<APIResponse<ChoirType>>{
+async function programHymnToService(token:string, hymnId:string|number, serviceId:string|number): Promise<APIResponse<ChoirType>>{
 // NOT SURE ABOUT THE RETURN TYPE
 
     let error;
@@ -323,6 +342,7 @@ export {
     editUser,
     deleteUser,
     getMe,
+    getUserPrograms,
 
     // ADDRESS
     createAddress,
@@ -341,6 +361,6 @@ export {
     createHymnById,
 
     // PROGRAM
-    programHymn,
+    programHymnToService,
     editProgramHymn
 }

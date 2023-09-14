@@ -7,6 +7,11 @@ import { Button, Input, Space } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import SearchHymn from '../components/SearchHymn';
+import DisplayHymn from '../components/DisplayHymn';
+import {CategoryType} from '../types';
+import { ConductorType } from '../types';
+import { getUserPrograms } from '../lib/apiWrapper';
+import HymnDataType from '../types/HymnData';
 
 interface DataType {
 key: React.Key;
@@ -18,43 +23,44 @@ key_mus:string,
 topics:string,
 }
 
+type programmingProps = {
+    loggedInUser: ConductorType|null,
+    flashMessage: (message:string|null, category: CategoryType|null) => void,
+}
+
 type DataIndex = keyof DataType;
 
-// useEffect(() => {
-//     async function fetchData(){
-//        // const response = await getAllPrograms(); or getAllServices()?
-//         console.log(response);
-//         if (response.data){
-//             let programs = response.data
-//         }
-//     }
-//     fetchData();
-// }, [newPost.id])
 
-const data: DataType[] = [
-    { key: '1', service: '2023-10-11', hymnalnum: 726, title: 'Will You Come and Follow Me (The Summons)', tune: 'KELVINGROVE', key_mus:' F Major', topics: 'Commitment, Discipleship and Mission, Invitation, Ministry, Service'},
-    ];
-
-type programmingProps = {}
-
-const Programming = ({}: programmingProps) => {
+const Programming = ({flashMessage}: programmingProps) => {
 
     // SET STATES
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
-  
+    const [data, setData] = useState<HymnDataType[]>([])
+
+    useEffect(() => {
+        async function fetchData(){
+           const response = await getUserPrograms(localStorage.getItem('token')!)
+            console.log(response);
+            if (response.data){
+                setData(response.data!)
+            }
+        }
+        fetchData();
+    }, [])
+
     const handleSearch = ( selectedKeys: string[], confirm: (param?: FilterConfirmProps) => void, dataIndex: DataIndex, ) => {
         confirm();
         setSearchText(selectedKeys[0]);
         setSearchedColumn(dataIndex);
-      };
-    
-      const handleReset = (clearFilters: () => void) => {
+        };
+
+        const handleReset = (clearFilters: () => void) => {
         clearFilters();
         setSearchText('');
-      };
+        };
 
     const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -142,7 +148,7 @@ const columns: ColumnsType<DataType> = [
     dataIndex: 'topics',
     key: 'topics',
     ...getColumnSearchProps('topics'),
-    width: '30%',
+    width: '20%',
 ellipsis: {
     showTitle: false,
     },
@@ -160,15 +166,15 @@ ellipsis: {
 },
 ];
 
+
 return (<>
-<Row style={{ background:'#d980a2', borderRadius:25, padding: 25, marginBottom:50}}>
-    <Col span={24} style={{ background:'#d980a2', borderRadius:25, padding: 25}} >
+<Row style={{ marginBottom:50 }}>
+    
+    <Col className="gutter-row" span={24} style={{ background:'#d980a2', borderRadius:25, padding: 50}} >
         <Typography.Title style={{margin:0, color:'#fff0f4'}}>Search Hymns</Typography.Title>
-    
-    
-    <SearchHymn ></SearchHymn>
-    
+        <SearchHymn flashMessage={flashMessage}></SearchHymn>
     </Col>
+
 </Row>
 
 <Row style={{ background:'#d980a2', borderRadius:25, padding: 25}}>

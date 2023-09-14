@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import type { DatePickerProps } from 'antd';
 import { DatePicker, Button, Form, Input, Col, Row, Space, InputNumber } from 'antd';
-import DisplayHymn from './DisplayHymn';
-import { CategoryType, HymnType } from '../types';
-import { createHymnById, programHymnToService } from '../lib/apiWrapper';
+import DisplayHymn from '../DisplayHymn';
+import { CategoryType, HymnType } from '../../types';
+import { createHymnById, programHymnToService } from '../../lib/apiWrapper';
 
 
 type searchProps = {
@@ -37,12 +37,6 @@ const SearchHymn = ({flashMessage}: searchProps) => {
         setProgramHymn({...programHymn, [e.target.name]: e.target.value})
         console.log(e.target.name)
         console.log(e.target.value)
-    }
-
-    const dateChange = (date,dateString) => {
-        programHymn.service_date = dateString
-        console.log(programHymn.service_date)
-        console.log(programHymn)
     }
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -98,9 +92,16 @@ return(<>
             </Col>
 
             <Col span={4}>
-            <Form.Item label="DatePicker">
-                    <DatePicker 
-                    onChange={(date, dateString) => dateChange(date,dateString)} 
+                <Form.Item
+                    name="date"
+                    label="Service Date"
+                    rules={[{ required: true, message: 'Please enter the hymn number' }]}
+                    >
+                <Input 
+                    name="number"
+                    placeholder="YYYY-MM-DD"
+                    onChange={handleInputChange} 
+                    value={programHymn.hymnal_number} 
                 />
                 </Form.Item>
             </Col>
