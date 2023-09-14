@@ -33,13 +33,13 @@ const LoginDrawer = ({isLoggedIn, loggedInUser, logUserIn, flashMessage}: regist
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
         // e.preventDefault();
-        console.log(user)
         const response = await loginUser(user.username!, user.password!)
+        console.log(response)
         if (response.error){
             flashMessage(response.error, 'error')
         } else{
             localStorage.setItem('token', response.data?.token as string);
-            localStorage.setItem('tokenExp', response.data?.tokenExpiration as string);
+            localStorage.setItem('tokenExp', response.data?.token_exp as string);
             const userResponse = await getMe(response.data?.token as string)
             logUserIn(userResponse.data!);
             navigate('/dashboard');
@@ -112,13 +112,6 @@ return (<>
             </Form.Item>
         </Col>
         </Row>
-
-        <Form.Item>
-		<Button type="primary" htmlType="submit">
-		  Register
-		</Button>
-	  </Form.Item>
-
     </Form>
     </Drawer>
 </>

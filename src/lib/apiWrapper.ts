@@ -10,7 +10,7 @@ import OrganizationType from '../types/OrganizationType';
 const base: string = 'http://localhost:8080/api'
 
 // URL to access the api
-const userEndpoint: string = '/user';
+const userEndpoint: string = '/users';
 // const loginEndpoint: string = '/login';
 const tokenEndpoint: string = '/token';
 const addressEndpoint: string = '/address';
@@ -36,7 +36,7 @@ const apiClientTokenAuth = (token:string) => axios.create({
 })
 
 type APIResponse <T> = { error?: string, data?: T }
-type TokenType = { token: string, tokenExpiration: string }
+type TokenType = { token: string, token_exp: string }
 
 // CREATE USER ------------------------------------------------------------------
 

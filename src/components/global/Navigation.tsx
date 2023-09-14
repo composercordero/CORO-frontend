@@ -1,4 +1,3 @@
-import { magenta } from '@ant-design/colors';
 import {
     HeartOutlined,
     HomeOutlined,
@@ -27,7 +26,7 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                 collapsed={collapsed}>
             <Space direction="horizontal" style={{width: '100%', justifyContent: 'center'}}>
 
-            <Typography.Title level={1} magenta-1 style={{ margin: 10, color:'#fff0f4' }}>
+            <Typography.Title level={1} style={{ margin: 10, color:'#fff0f4' }}>
                 CORO
             </Typography.Title>
             </Space>
@@ -54,9 +53,8 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                     defaultSelectedKeys={['1']}
                     style={{ backgroundColor: 'none' }}
                     items={[
-                        { key: '/', icon: <InfoCircleOutlined />, label: 'Register', },
-                        { key: '/login', icon: <InfoCircleOutlined />, label: 'Login', },
-                        { key: '/about', icon: <InfoCircleOutlined />, label: 'About', },
+                        { key: '/', icon: <HomeOutlined />, label: 'Register/login', },
+                        { key: '/about', icon: <HeartOutlined />, label: 'About', },
                         { key: '/contact', icon: <InfoCircleOutlined />, label: 'Contact', },
                     
                     ]}

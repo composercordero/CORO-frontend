@@ -28,7 +28,7 @@ const RegisterDrawer = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: reg
             password :'',
             date_created:'',
             token:'',
-            tokenExpiration:'',
+            token_expiration:'',
         }
     );
 
@@ -45,7 +45,7 @@ const RegisterDrawer = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: reg
             const newUser = response.data
             let loginResponse = await loginUser(userFormData.username!, userFormData.password!)
             localStorage.setItem('token', loginResponse.data?.token!)
-            localStorage.setItem('tokenExp', loginResponse.data?.tokenExpiration!)
+            localStorage.setItem('tokenExp', loginResponse.data?.token_exp!)
             logUserIn(newUser!);
             navigate('/dashboard')
         }
@@ -93,6 +93,7 @@ return (<>
             rules={[{ required: true, message: 'Please enter user name' }]}
             >
             <Input 
+                name="firstName"
                 placeholder="Please enter your name"
                 onChange={handleInputChange} 
                 value={userFormData.firstName} 
@@ -106,6 +107,7 @@ return (<>
             rules={[{ required: true, message: 'Please enter user name' }]}
             >
             <Input 
+                name="lastName"
                 placeholder="Please enter your name" 
                 onChange={handleInputChange} 
                 value={userFormData.lastName}
@@ -123,6 +125,7 @@ return (<>
             hasFeedback
             >
             <Input.Password 
+                name="password"
                 onChange={handleInputChange} 
                 value={userFormData.password}/>
             </Form.Item>
@@ -158,6 +161,7 @@ return (<>
             { required: true, message: 'Please input your E-mail!', }, ]}
             >
             <Input 
+                name="email"
                 onChange={handleInputChange} 
                 value={userFormData.email}
             />
@@ -192,7 +196,9 @@ return (<>
             label="Username"
             rules={[{ required: true, message: 'Please enter username' }]}
             >
-            <Input placeholder="Please enter your username" 
+            <Input 
+                name="username"
+                placeholder="Please enter your username" 
                 onChange={handleInputChange} 
                 value={userFormData.username}
             />

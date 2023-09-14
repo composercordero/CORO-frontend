@@ -7,7 +7,7 @@ type ConductorType = {
     password :string,
     date_created:string,
     token?:string,
-    tokenExpiration?:string,
+    token_expiration?:string,
 }
 
 export default ConductorType

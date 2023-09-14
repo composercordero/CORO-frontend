@@ -1,48 +1,92 @@
 import React from 'react';
-import { ConfigProvider, Button, Space, Input, Divider } from 'antd';
+import { Table } from 'antd';
+import type { ColumnsType, TableProps } from 'antd/es/table';
 
-const App: React.FC = () => (
-  <>
-    <ConfigProvider
-      theme={{
-        components: {
-          Button: {
-            colorPrimary: '#00b96b',
-            algorithm: true, // Enable algorithm
-          },
-          Input: {
-            colorPrimary: '#eb2f96',
-            algorithm: true, // Enable algorithm
-          }
-        },
-      }}
-    >
-      <Space>
-        <div style={{ fontSize: 14 }}>Enable algorithm: </div>
-        <Input placeholder="Please Input" />
-        <Button type="primary">Submit</Button>
-      </Space>
-    </ConfigProvider>
-    <Divider />
-    <ConfigProvider
-      theme={{
-        components: {
-          Button: {
-            colorPrimary: '#00b96b',
-          },
-          Input: {
-            colorPrimary: '#eb2f96',
-          }
-        },
-      }}
-    >
-      <Space>
-        <div style={{ fontSize: 14 }}>Disable algorithm: </div>
-        <Input placeholder="Please Input" />
-        <Button type="primary">Submit</Button>
-      </Space>
-    </ConfigProvider>
-  </>
-);
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const columns: ColumnsType<DataType> = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    filters: [
+      {
+        text: 'Joe',
+        value: 'Joe',
+      },
+      {
+        text: 'Category 1',
+        value: 'Category 1',
+      },
+      {
+        text: 'Category 2',
+        value: 'Category 2',
+      },
+    ],
+    filterMode: 'tree',
+    filterSearch: true,
+    onFilter: (value: string, record) => record.name.startsWith(value),
+    width: '30%',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    sorter: (a, b) => a.age - b.age,
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    filters: [
+      {
+        text: 'London',
+        value: 'London',
+      },
+      {
+        text: 'New York',
+        value: 'New York',
+      },
+    ],
+    onFilter: (value: string, record) => record.address.startsWith(value),
+    filterSearch: true,
+    width: '40%',
+  },
+];
+
+const data: DataType[] = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Jim Red',
+    age: 32,
+    address: 'London No. 2 Lake Park',
+  },
+];
+
+const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra);
+};
+
+const App: React.FC = () => <Table columns={columns} dataSource={data} onChange={onChange} />;
 
 export default App;

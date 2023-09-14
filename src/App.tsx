@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 // Import Views
 import Home from './views/Home'
+import About from "./views/About";
+import Contact from "./views/Contact";
 import Dashboard from './views/Dashboard'
-import Login from './components/LoginDrawer'
 // Import Components
 import { Layout, ConfigProvider } from "antd";
 import Navigation from "./components/global/Navigation";
@@ -12,7 +13,7 @@ import AlertMessage from "./components/global/AlertMessage";
 // Import Globals
 import Header from './components/global/Header'
 // Import Types
-import { CategoryType, ChoirType, ConductorType, HymnType, OrganizationType} from "./types";
+import { CategoryType, ConductorType} from "./types";
 // Import apiWrapper Functions
 import { getMe } from './lib/apiWrapper';
 
@@ -109,6 +110,10 @@ function App() {
           <Routes>
 
             <Route path='/' element={<Home  isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} logUserIn={logUserIn}/> }></Route>
+
+            <Route path='/about' element={<About /> }></Route>
+            
+            <Route path='/contact' element={<Contact flashMessage = {flashMessage}/> }></Route>
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
             

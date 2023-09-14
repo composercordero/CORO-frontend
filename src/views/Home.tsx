@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import RegisterDrawer from '../components/RegisterDrawer'
 import LoginDrawer from '../components/LoginDrawer'
 // Import Globals
-// import { Carousel } from 'antd';
 import { Col, Row, Space, Typography } from 'antd';
 
 // Import Types
@@ -25,12 +24,7 @@ type homeProps = {
 
 const Home = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: homeProps) => {
 
-  const navigate = useNavigate()
-
-
-
   return (<>
-
 
     <Row gutter={0} style={{ background:'#d980a2', borderRadius:25, padding: 25}}>
         <Col span={10} style={{ background:'#d980a2', borderRadius:25, padding: 25}} >
@@ -56,8 +50,6 @@ const Home = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: homeProps) =>
         
         </Col>
         </Row>
-
-
 
     </>)
 }
