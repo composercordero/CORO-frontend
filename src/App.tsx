@@ -6,6 +6,7 @@ import Home from './views/Home'
 import About from "./views/About";
 import Contact from "./views/Contact";
 import Dashboard from './views/Dashboard'
+import Programming from "./views/Programming";
 // Import Components
 import { Layout, ConfigProvider } from "antd";
 import Navigation from "./components/global/Navigation";
@@ -114,6 +115,9 @@ function App() {
             <Route path='/about' element={<About /> }></Route>
             
             <Route path='/contact' element={<Contact flashMessage = {flashMessage}/> }></Route>
+
+            <Route path='/programming' element={<Programming /> }></Route>
+
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
             

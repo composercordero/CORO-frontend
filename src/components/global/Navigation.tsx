@@ -38,7 +38,7 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                     defaultSelectedKeys={['1']}
                     items={[
                     { key: '/dashboard', icon: <HomeOutlined />, label: 'Dashboard', },
-                    { key: '/info', icon: <InfoCircleOutlined />, label: 'Programming', },
+                    { key: '/programming', icon: <InfoCircleOutlined />, label: 'Programming', },
                     { key: '/database', icon: <HeartOutlined />, label: 'My Hymns', },
                     { key: '/search', icon: <DeleteOutlined />, label: 'Search Hymns', },
                     { key: '/logout', icon: <InfoCircleOutlined />, label: 'Logout', },
