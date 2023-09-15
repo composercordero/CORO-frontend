@@ -1,5 +1,5 @@
 import { Alert, Space } from 'antd';
-import CategoryType from '../../types/Category';
+import {CategoryType} from '../../types';
 
 type alertProps = {
     category: CategoryType,
@@ -10,7 +10,7 @@ type alertProps = {
 const AlertMessage = ({ message, category, flashMessage}: alertProps) => {
   return (<>
     <Space direction="vertical" style={{ width: '100%' }}>
-        <Alert type={category} message={message} banner closable/>
+        <Alert type={category} message={message} banner closable style={{borderBottomLeftRadius:25}}/>
     </Space>
     </>);
 }

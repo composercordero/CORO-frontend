@@ -35,15 +35,15 @@ const SearchHymn = ({flashMessage, setUpdateTable, updateTable}: searchProps) =>
 
     const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>):void => {
         setProgramHymn({...programHymn, [e.target.name]: e.target.value})
-        console.log(e.target.name)
-        console.log(e.target.value)
+        // console.log(e.target.name)
+        // console.log(e.target.value)
     }
 
     const dateChange = (date:Date|null, dateString:string) => {
         programHymn.service_date = dateString
-        console.log(date)
-        console.log(programHymn.service_date)
-        console.log(programHymn)
+        // console.log(date)
+        // console.log(programHymn.service_date)
+        // console.log(programHymn)
     }
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {

@@ -147,14 +147,14 @@ const Programming = ({flashMessage}: programmingProps) => {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        width: '25%',
+        width: '30%',
         ...getColumnSearchProps('title'),
     },
     {
         title: 'Tune Name',
         dataIndex: 'tune',
         key: 'tune',
-        width: '10%',
+        width: '15%',
         ...getColumnSearchProps('tune'),
     },
     {

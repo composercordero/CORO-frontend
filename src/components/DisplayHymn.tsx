@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import type { DrawerProps } from 'antd/es/drawer';
 import { Button, Drawer, Descriptions, Space } from 'antd';
-import { Badge } from 'antd';
-import type { DescriptionsProps } from 'antd';
 import { HymnType } from '../types';
 import { createHymnById, displayHymn } from '../lib/apiWrapper';
 import {CategoryType} from '../types';
