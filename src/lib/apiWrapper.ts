@@ -284,7 +284,7 @@ async function createHymnById(token:string, hymnId:string|number): Promise<APIRe
     let error;
     let data;
     try {
-        const response = await apiClientTokenAuth(token).put(hymnsEndpoint + '/' + hymnId);
+        const response = await apiClientTokenAuth(token).post(hymnsEndpoint + '/' + hymnId);
         data = response.data
     } catch(err){
         if (axios.isAxiosError(err)){
@@ -316,23 +316,45 @@ async function programHymnToService(token:string, hymnId:string|number, serviceI
     return {error,data}
 }
 
+// PROGRAM HYMN BY DATE------------------------------------------------------------------
+
+async function programHymnToServiceByDate(token:string, hymnId:string|number, serviceDate:string|number): Promise<APIResponse<ChoirType>>{
+    // NOT SURE ABOUT THE RETURN TYPE
+    
+        let error;
+        let data;
+        try {
+            const response = await apiClientTokenAuth(token).post(programEndpoint + '/' + serviceDate + '/' + hymnId);
+            data = response.data
+        } catch(err){
+            if (axios.isAxiosError(err)){
+                error = err.response?.data.error
+            } else {
+                error = 'Something went wrong'
+            }
+        }
+        return {error,data}
+    }
+
 // EDIT PROGRAM HYMN ------------------------------------------------------------------
 
-async function editProgramHymn(token:string, programId:string|number): Promise<APIResponse<ChoirType>>{
-    let error;
-    let data;
-    try {
-        const response = await apiClientTokenAuth(token).delete(programEndpoint + '/' + programId);
-        data = response.data
-    } catch(err){
-        if (axios.isAxiosError(err)){
-            error = err.response?.data.error
-        } else {
-            error = 'Something went wrong'
+async function editProgramHymn(token:string, hymnId:string|number, serviceDate:string|number): Promise<APIResponse<ChoirType>>{
+    // NOT SURE ABOUT THE RETURN TYPE
+    
+        let error;
+        let data;
+        try {
+            const response = await apiClientTokenAuth(token).delete(programEndpoint + '/' + serviceDate + '/' + hymnId);
+            data = response.data
+        } catch(err){
+            if (axios.isAxiosError(err)){
+                error = err.response?.data.error
+            } else {
+                error = 'Something went wrong'
+            }
         }
+        return {error,data}
     }
-    return {error,data}
-}
 
 export {
 
@@ -362,5 +384,6 @@ export {
 
     // PROGRAM
     programHymnToService,
+    programHymnToServiceByDate,
     editProgramHymn
 }

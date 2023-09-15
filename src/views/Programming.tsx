@@ -1,4 +1,4 @@
-import { Col, Row, Typography, Table, Tooltip } from 'antd';
+import { Col, Modal, Row, Typography, Table, Tooltip } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useRef, useState, useEffect } from 'react';
 import Highlighter from "react-highlight-words";
@@ -7,10 +7,10 @@ import { Button, Input, Space } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import SearchHymn from '../components/SearchHymn';
-import DisplayHymn from '../components/DisplayHymn';
+// import DisplayHymn from '../components/DisplayHymn';
 import {CategoryType} from '../types';
 import { ConductorType } from '../types';
-import { getUserPrograms } from '../lib/apiWrapper';
+import { getUserPrograms, editProgramHymn } from '../lib/apiWrapper';
 import HymnDataType from '../types/HymnData';
 
 interface DataType {
@@ -159,13 +159,23 @@ ellipsis: {
     ),
 },
 {
+    key: 'action',
     title: 'Action',
-    dataIndex: '',
-    key: 'x',
-    render: () => <Button type='primary' onClick={()=> console.log('delete function')}>Delete</Button>,
+    render: (currentRow) => <Button type='primary' onClick={()=> Delete(currentRow)}>Delete</Button>,
 },
 ];
 
+const Delete = async ({hymnalnum, service}):Promise<void> => {
+    console.log(hymnalnum) 
+    const token = localStorage.getItem('token')
+    const response = await editProgramHymn(token!, hymnalnum!, service!)
+    console.log(response)
+    if (response.error){
+        flashMessage(response.error, 'error')
+    } else{
+        flashMessage('Hymn deleted from your program!','success')
+    }
+    }; 
 
 return (<>
 <Row style={{ marginBottom:50 }}>
