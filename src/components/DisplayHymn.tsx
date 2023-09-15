@@ -1,45 +1,45 @@
 import { useState } from 'react';
-import { Avatar, Button, Drawer, List, Space } from 'antd';
 import type { DrawerProps } from 'antd/es/drawer';
-import React from 'react';
-import { Badge, Descriptions } from 'antd';
+import { Button, Drawer, Descriptions, Space } from 'antd';
+import { Badge } from 'antd';
 import type { DescriptionsProps } from 'antd';
+import { HymnType } from '../types';
+import { createHymnById, displayHymn } from '../lib/apiWrapper';
+import {CategoryType} from '../types';
 
 type displayHymnProps = {
-
+    programHymn:Partial<HymnType>,
+    flashMessage: (message:string|null, category:CategoryType|null)=> void,
 }
 
-const DisplayHymn = ({}: displayHymnProps) => {
+const DisplayHymn = ({programHymn, flashMessage}: displayHymnProps) => {
 const [open, setOpen] = useState(false);
 const [size, setSize] = useState<DrawerProps['size']>();
+const [currentHymn, setCurrentHymn] = useState<HymnType|null>(null)
+const [items, setItems] = useState([])
 
-const showDefaultDrawer = () => {
-setSize('large');
-setOpen(true);
+const HandleCurrentHymn = async ():Promise<void> => {
+    const token = localStorage.getItem('token')
+    const response = await createHymnById(token!, programHymn.hymnal_number!)
+    const display = await displayHymn(token!, programHymn.hymnal_number!)
+    if (response.error){
+        flashMessage(response.error, 'error')
+    } else{
+        setCurrentHymn(response!)
+        setItems(display.data!)
+        console.log(currentHymn)
+        setSize('large');
+        setOpen(true);
+    }
 };
 
 const onClose = () => {
 setOpen(false);
 };
 
-// TO EDIT: CONNECT TO BACK END (CREATE GET CURRENT HYMN), CREATE APIWRAPPER FUNC, SETSTATE
-const items: DescriptionsProps['items'] = [
-    { key: '1', label: 'Number', children: '725', },
-    { key: '2', label: 'Tune', children: 'NYLAND', },
-    { key: '4', label: 'Key', children: 'Eb Major', },
-    { key: '5', label: 'Last Programmed', span: 2, children: '2019-04-24', },
-    { key: '6', label: 'Status', span: 3, children: <Badge status="error" text="New" />, },
-    { key: '7', label: 'Author', children: 'John Ernest Bode', },
-    { key: '8', label: 'Meter', children: '7.6.7.6.D', },
-    { key: '9', label: 'Language', children: 'English', },
-    { key: '10', label: 'Copyright', children: 'Adapt. and Harm.© 1927 Oxford University Press' },
-  ];
-
-
-return (
-<>
+return (<>
     <Space>
-    <Button type="primary" onClick={showDefaultDrawer}>
+    <Button type="primary" onClick={HandleCurrentHymn} >
         Display Hymn info
     </Button>
     </Space>
@@ -53,14 +53,12 @@ return (
     extra={
         <Space>
         <Button onClick={onClose}>Cancel</Button>
-        <Button type="primary" onClick={onClose}>
-            OK
-        </Button>
+        <Button type="primary" onClick={onClose}> OK </Button>
         </Space>
 }
 >
 
-<Descriptions title="O Jesus, I Have Promised" layout="vertical" bordered items={items} />
+<Descriptions  layout="vertical" bordered items={items} />
 </Drawer>
 </>
 );

@@ -51,6 +51,7 @@ const SearchHymn = ({flashMessage, setUpdateTable, updateTable}: searchProps) =>
         const token = localStorage.getItem('token')
         const response = await createHymnById(token!, programHymn.hymnal_number!)
         const program_response = await programHymnToServiceByDate(token!, programHymn.hymnal_number!, programHymn.service_date!)
+        console.log(program_response)
         if (response.error){
             flashMessage(response.error, 'error')
         } else{
@@ -110,7 +111,7 @@ return(<>
 		        Add Hymn
 		    </Button>
 
-            <DisplayHymn></DisplayHymn>
+            <DisplayHymn flashMessage={flashMessage} programHymn={programHymn}></DisplayHymn>
         </Space>
         
         </Form>

@@ -1,4 +1,4 @@
-import { Col, Modal, Row, Typography, Table, Tooltip } from 'antd';
+import { Col, Row, Typography, Table, Tooltip } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useRef, useState, useEffect } from 'react';
 import Highlighter from "react-highlight-words";
@@ -8,7 +8,7 @@ import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import SearchHymn from '../components/SearchHymn';
 // import DisplayHymn from '../components/DisplayHymn';
-import {CategoryType} from '../types';
+import {CategoryType, HymnType} from '../types';
 import { ConductorType } from '../types';
 import { getUserPrograms, editProgramHymn } from '../lib/apiWrapper';
 import HymnDataType from '../types/HymnData';
@@ -33,13 +33,16 @@ type DataIndex = keyof DataType;
 
 const Programming = ({flashMessage}: programmingProps) => {
 
-    // SET STATES
+    // SET STATES ----------------------------------------------------
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
     const [updateTable, setUpdateTable] = useState(false)
     const [data, setData] = useState<HymnDataType[]>([])
+
+
+    // USE EFFECT: UPDATE TABLE ----------------------------------------------------
 
     useEffect(() => {
         async function fetchData(){
@@ -62,6 +65,8 @@ const Programming = ({flashMessage}: programmingProps) => {
         }
         fetchData();
     }, [updateTable])
+
+    // TABLE SEARCH ----------------------------------------------------
 
     const handleSearch = ( selectedKeys: string[], confirm: (param?: FilterConfirmProps) => void, dataIndex: DataIndex, ) => {
         confirm();
@@ -92,104 +97,110 @@ const Programming = ({flashMessage}: programmingProps) => {
                 <Button type="link" size="small" onClick={() => { close(); }} > close </Button>
             </Space>
         </div>),
-filterIcon: (filtered: boolean) => (
-    <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
-),
-onFilter: (value, record) =>
-    record[dataIndex]
-    .toString()
-    .toLowerCase()
-    .includes((value as string).toLowerCase()),
-onFilterDropdownOpenChange: (visible) => {
-    if (visible) {
-    setTimeout(() => searchInput.current?.select(), 100);
-    }
-},
-render: (text) =>
-    searchedColumn === dataIndex ? (
-    <Highlighter
-        highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-        searchWords={[searchText]}
-        autoEscape
-        textToHighlight={text ? text.toString() : ''}
-    />
-    ) : (
-    text
+    filterIcon: (filtered: boolean) => (
+        <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
     ),
-});
-
-const columns: ColumnsType<DataType> = [
-{
-    title: 'Service Date',
-    dataIndex: 'service',
-    key: 'service',
-    width: '10%',
-    ...getColumnSearchProps('service'),
-    sorter: (a, b) => moment(a.service).unix() - moment(b.service).unix()
-},
-{
-    title: 'Number',
-    dataIndex: 'hymnalnum',
-    key: 'hymnalnum',
-    width: '10%',
-    ...getColumnSearchProps('hymnalnum'),
-    sorter: (a, b) => a.hymnalnum - b.hymnalnum
-},
-{
-    title: 'Title',
-    dataIndex: 'title',
-    key: 'title',
-    width: '25%',
-    ...getColumnSearchProps('title'),
-},
-{
-    title: 'Tune Name',
-    dataIndex: 'tune',
-    key: 'tune',
-    width: '10%',
-    ...getColumnSearchProps('tune'),
-},
-{
-    title: 'Key',
-    dataIndex: 'key_mus',
-    key: 'key_mus',
-    width: '7%',
-    ...getColumnSearchProps('key_mus'),
-},
-{
-    title: 'Topics',
-    dataIndex: 'topics',
-    key: 'topics',
-    ...getColumnSearchProps('topics'),
-    width: '20%',
-ellipsis: {
-    showTitle: false,
+    onFilter: (value, record) =>
+        record[dataIndex]
+        .toString()
+        .toLowerCase()
+        .includes((value as string).toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+        if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+        }
     },
-    render: (topics) => (
-    <Tooltip placement="topLeft" title={topics}>
-        {topics}
-    </Tooltip>
-    ),
-},
-{
-    key: 'action',
-    title: 'Action',
-    render: (currentRow) => <Button type='primary' onClick={()=> Delete(currentRow)}>Delete</Button>,
-},
-];
+    render: (text) =>
+        searchedColumn === dataIndex ? (
+        <Highlighter
+            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ''}
+        />
+        ) : (
+        text
+        ),
+    });
 
-const Delete = async ({hymnalnum, service}:{ hymnalnum: string; service: string }):Promise<void> => {
-    console.log(hymnalnum) 
-    const token = localStorage.getItem('token')
-    const response = await editProgramHymn(token!, hymnalnum!, service!)
-    // console.log(response)
-    if (response.error){
-        flashMessage(response.error, 'error')
-    } else{
-        flashMessage('Hymn deleted from your program!','success')
-        setUpdateTable(!updateTable)
-    }
-    }; 
+    // TABLE COLUMNS ----------------------------------------------------
+
+
+    const columns: ColumnsType<DataType> = [
+    {
+        title: 'Service Date',
+        dataIndex: 'service',
+        key: 'service',
+        width: '10%',
+        ...getColumnSearchProps('service'),
+        sorter: (a, b) => moment(a.service).unix() - moment(b.service).unix()
+    },
+    {
+        title: 'Number',
+        dataIndex: 'hymnalnum',
+        key: 'hymnalnum',
+        width: '10%',
+        ...getColumnSearchProps('hymnalnum'),
+        sorter: (a, b) => a.hymnalnum - b.hymnalnum
+    },
+    {
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        width: '25%',
+        ...getColumnSearchProps('title'),
+    },
+    {
+        title: 'Tune Name',
+        dataIndex: 'tune',
+        key: 'tune',
+        width: '10%',
+        ...getColumnSearchProps('tune'),
+    },
+    {
+        title: 'Key',
+        dataIndex: 'key_mus',
+        key: 'key_mus',
+        width: '7%',
+        ...getColumnSearchProps('key_mus'),
+    },
+    {
+        title: 'Topics',
+        dataIndex: 'topics',
+        key: 'topics',
+        ...getColumnSearchProps('topics'),
+        width: '20%',
+    ellipsis: {
+        showTitle: false,
+        },
+        render: (topics) => (
+        <Tooltip placement="topLeft" title={topics}>
+            {topics}
+        </Tooltip>
+        ),
+    },
+    {
+        key: 'action',
+        title: 'Action',
+        render: (currentRow) => <Button type='primary' onClick={()=> Delete(currentRow)}>Delete</Button>,
+    },
+    ];
+
+    // DELETE FUNCTION ----------------------------------------------------
+
+
+    const Delete = async ({hymnalnum, service}:{ hymnalnum: string; service: string }):Promise<void> => {
+        console.log(hymnalnum) 
+        const token = localStorage.getItem('token')
+        const response = await editProgramHymn(token!, hymnalnum!, service!)
+        // console.log(response)
+        if (response.error){
+            flashMessage(response.error, 'error')
+        } else{
+            flashMessage('Hymn deleted from your program!','success')
+            setUpdateTable(!updateTable)
+        }
+        }; 
 
 return (<>
 <Row style={{ marginBottom:50 }}>

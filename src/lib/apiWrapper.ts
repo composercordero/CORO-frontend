@@ -339,7 +339,6 @@ async function programHymnToServiceByDate(token:string, hymnId:string|number, se
 // EDIT PROGRAM HYMN ------------------------------------------------------------------
 
 async function editProgramHymn(token:string, hymnId:string|number, serviceDate:string|number): Promise<APIResponse<ChoirType>>{
-    // NOT SURE ABOUT THE RETURN TYPE
     
         let error;
         let data;
@@ -355,6 +354,24 @@ async function editProgramHymn(token:string, hymnId:string|number, serviceDate:s
         }
         return {error,data}
     }
+
+// GET HYM TO DISPLAY ------------------------------------------------------------------
+
+async function displayHymn(token:string, hymnId:number) {
+    let error;
+    let data;
+    try{
+        const response = await apiClientTokenAuth(token).get(hymnsEndpoint + '/display' + '/' + hymnId);
+        data = response.data
+    } catch(err) {
+        if (axios.isAxiosError(err)){
+            error = err.response?.data.error
+        } else {
+            error = 'Something went wrong'
+        }
+    }
+    return {error, data}
+}
 
 export {
 
@@ -381,6 +398,7 @@ export {
 
     // HYMN
     createHymnById,
+   displayHymn,
 
     // PROGRAM
     programHymnToService,
