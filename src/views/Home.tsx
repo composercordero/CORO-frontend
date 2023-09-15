@@ -7,7 +7,6 @@ import { CategoryType, ConductorType } from "../types";
 // Import apiWrapper Functions
 import planningImage from '../assets/business-discussion.svg'
 
-
 type homeProps = {
   isLoggedIn: boolean,
   loggedInUser: ConductorType|null,
@@ -18,7 +17,6 @@ type homeProps = {
 const Home = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: homeProps) => {
 
   return (<>
-
     <Row gutter={0} style={{ background:'#d980a2', borderRadius:25, padding: 25}}>
         <Col span={10} style={{ background:'#d980a2', borderRadius:25, padding: 25}} >
 
@@ -39,12 +37,11 @@ const Home = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: homeProps) =>
 
         </Col>
         
-        <Col span={14}>
+      <Col span={14}>
         <img src={planningImage} alt="" />
         
-        </Col>
-        </Row>
-
+      </Col>
+    </Row>
     </>)
 }
 

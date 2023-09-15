@@ -6,6 +6,7 @@ import Home from './views/Home'
 import About from "./views/About";
 import Contact from "./views/Contact";
 import Dashboard from './views/Dashboard'
+import Library from './views/Library'
 import Programming from "./views/Programming";
 import Info from "./views/Info";
 // Import Components
@@ -119,10 +120,12 @@ function App() {
 
             <Route path='/programming' element={<Programming loggedInUser = {loggedInUser} flashMessage={flashMessage}/>}></Route>
 
-            <Route path='/info' element={<Info flashMessage = {flashMessage} loggedInUser = {loggedInUser}/>}></Route>
+            <Route path='/info' element={<Info isLoggedIn={isLoggedIn} flashMessage = {flashMessage} loggedInUser = {loggedInUser} logUserIn={logUserIn}/>}></Route>
 
-            <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
+            <Route path='/dashboard' element={<Dashboard />}></Route>
             
+            <Route path='/library' element={<Library />}></Route>
+
           </Routes>
           </Layout>
       </Layout>

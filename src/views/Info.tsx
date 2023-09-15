@@ -7,8 +7,6 @@ import Team from '../assets/office-employee-making-checklist.svg'
 import { ConductorType, CategoryType } from '../types';
 // Import apiWrapper Functions
 
-
-
 type contactProps = {
   isLoggedIn: boolean,
   loggedInUser: ConductorType|null,
