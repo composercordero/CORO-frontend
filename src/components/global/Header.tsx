@@ -1,6 +1,8 @@
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
+    GithubOutlined,
+    LinkedinOutlined,
   } from '@ant-design/icons';
 import { Button, Layout, Affix, Avatar, Space } from 'antd';
 
@@ -27,9 +29,13 @@ const Header = ({handleCollapsed, collapsed}: headerProps) => {
               height: 64,
           }}
         />
-        <Avatar style={{ backgroundColor: '', verticalAlign: 'middle' }} size="large" gap={4}>
-        C
-      </Avatar>
+        <Space style={{width: '100%', justifyContent: 'space-around',}}>
+          <a href='https://github.com/composercordero/CORO-frontend' target='_blank'>
+          <GithubOutlined style={{ verticalAlign: 'middle', backgroundColor:'#d980a2', color:'#272829', padding:12, borderRadius:50, marginRight:10,}}/></a>
+          <a href='https://www.linkedin.com/in/composercordero/' target='_blank'>
+          <LinkedinOutlined style={{ verticalAlign: 'middle', backgroundColor:'#d980a2', color:'#272829', padding:12, borderRadius:50, marginRight:10,}}/></a>
+          <Avatar style={{ backgroundColor: '', verticalAlign: 'middle' }} size="large">C</Avatar>
+        </Space>
       </Space>
     </Header>
     </ Affix>

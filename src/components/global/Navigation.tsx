@@ -3,8 +3,6 @@ import {
     HomeOutlined,
     InfoCircleOutlined,
     BookOutlined,
-    GithubOutlined,
-    LinkedinOutlined,
     UserOutlined
 
 } from '@ant-design/icons';
@@ -27,7 +25,6 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                 trigger={null} 
                 collapsible 
                 collapsed={collapsed}>
-            <Space style={{flexDirection: 'column', justifyContent: 'space-between', height: '100vh'}}>
             <Space direction="vertical" style={{width: '100%', justifyContent: 'center'}}>
             <Space direction="horizontal" style={{width: '100%', justifyContent: 'center'}}>
             <Typography.Title level={1} style={{ margin: 10, color:'#fff0f4' }}>
@@ -61,9 +58,6 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                         { key: '/', icon: <HomeOutlined />, label: 'Register/login', },
                         { key: '/about', icon: <HeartOutlined />, label: 'About', },
                         { key: '/contact', icon: <HeartOutlined />, label: 'Contact', },
-                        
-
-                    
                     ]}
                     onClick = {({key}) => {nav(key)}}
                 />
@@ -72,11 +66,6 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
             </Space>
 
             <Space style={{justifyContent:'end', color:'#fff0f4'}}>
-                <Typography.Paragraph style={{ margin: 10, color:'#fff0f4' }} >Created by Carlos</Typography.Paragraph>
-                <GithubOutlined />
-                <LinkedinOutlined />
-
-            </Space>
             </Space>
             </Sider>
             </Affix>
