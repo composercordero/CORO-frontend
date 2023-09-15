@@ -12,6 +12,7 @@ import {CategoryType} from '../types';
 import { ConductorType } from '../types';
 import { getUserPrograms, editProgramHymn } from '../lib/apiWrapper';
 import HymnDataType from '../types/HymnData';
+import moment from 'moment';
 
 interface DataType {
 key: React.Key;
@@ -37,6 +38,7 @@ const Programming = ({flashMessage}: programmingProps) => {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
+    const [updateTable, setUpdateTable] = useState(false)
     const [data, setData] = useState<HymnDataType[]>([])
 
     useEffect(() => {
@@ -48,7 +50,18 @@ const Programming = ({flashMessage}: programmingProps) => {
             }
         }
         fetchData();
-    }, [data])
+    }, [])
+
+    useEffect(() => {
+        async function fetchData(){
+           const response = await getUserPrograms(localStorage.getItem('token')!)
+            console.log(response);
+            if (response.data){
+                setData(response.data!)
+            }
+        }
+        fetchData();
+    }, [updateTable])
 
     const handleSearch = ( selectedKeys: string[], confirm: (param?: FilterConfirmProps) => void, dataIndex: DataIndex, ) => {
         confirm();
@@ -112,6 +125,7 @@ const columns: ColumnsType<DataType> = [
     key: 'service',
     width: '10%',
     ...getColumnSearchProps('service'),
+    sorter: (a, b) => moment(a.service).unix() - moment(b.service).unix()
 },
 {
     title: 'Number',
@@ -168,11 +182,12 @@ const Delete = async ({hymnalnum, service}:{ hymnalnum: string; service: string 
     console.log(hymnalnum) 
     const token = localStorage.getItem('token')
     const response = await editProgramHymn(token!, hymnalnum!, service!)
-    console.log(response)
+    // console.log(response)
     if (response.error){
         flashMessage(response.error, 'error')
     } else{
         flashMessage('Hymn deleted from your program!','success')
+        setUpdateTable(!updateTable)
     }
     }; 
 
@@ -181,7 +196,7 @@ return (<>
     
     <Col className="gutter-row" span={24} style={{ background:'#d980a2', borderRadius:25, padding: 50}} >
         <Typography.Title style={{margin:0, color:'#fff0f4'}}>Search Hymns</Typography.Title>
-        <SearchHymn flashMessage={flashMessage}></SearchHymn>
+        <SearchHymn setUpdateTable = {setUpdateTable} updateTable = {updateTable} flashMessage={flashMessage}></SearchHymn>
     </Col>
 
 </Row>

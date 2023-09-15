@@ -51,7 +51,7 @@ const Contact = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: contactPro
 
         <Typography.Paragraph style={{marginTop:25, marginBottom:25, color:'#fff0f4'}}>If you would like to update your information, you can click the button below.</Typography.Paragraph>
 
-        <Col span={24} style={{ background:'#fff7f9', borderRadius:25, marginBottom:50}} >
+        <Col span={18} style={{ background:'#fff7f9', borderRadius:25, marginBottom:50}} >
         <Descriptions bordered column={1} items={items} />
         </Col>
         <EditDrawer logUserIn={logUserIn} isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} />

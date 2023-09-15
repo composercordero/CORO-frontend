@@ -5,10 +5,12 @@ import { CategoryType, HymnType } from '../types';
 import { createHymnById, programHymnToServiceByDate } from '../lib/apiWrapper';
 
 type searchProps = {
-    flashMessage: (message:string|null, category:CategoryType|null)=> void
+    flashMessage: (message:string|null, category:CategoryType|null)=> void,
+    setUpdateTable : (arg0: boolean) => void,
+    updateTable:boolean,
 }
 
-const SearchHymn = ({flashMessage}: searchProps) => {
+const SearchHymn = ({flashMessage, setUpdateTable, updateTable}: searchProps) => {
 
     const [form] = Form.useForm();
     
@@ -53,6 +55,7 @@ const SearchHymn = ({flashMessage}: searchProps) => {
             flashMessage(response.error, 'error')
         } else{
             flashMessage('Hymn added to your program!','success')
+            setUpdateTable(!updateTable)
         }
     }
 
