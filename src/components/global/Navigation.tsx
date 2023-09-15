@@ -5,6 +5,7 @@ import {
     BookOutlined,
     GithubOutlined,
     LinkedinOutlined,
+    UserOutlined
 
 } from '@ant-design/icons';
 import { Affix, Layout, Menu, Space, Typography, theme } from 'antd';
@@ -43,6 +44,7 @@ export default function Navigation({nav, collapsed, isLoggedIn}:navigationProps)
                     { key: '/dashboard', icon: <HomeOutlined />, label: 'Dashboard', },
                     { key: '/programming', icon: <InfoCircleOutlined />, label: 'Programming', },
                     { key: '/database', icon: <BookOutlined />, label: 'My Library', },
+                    { key: '/info', icon: <UserOutlined />, label: 'My Info', },
                     { key: '/contact', icon: <HeartOutlined />, label: 'Contact', },
                     { key: '/logout', icon: <InfoCircleOutlined />, label: 'Logout', },
                     ]}

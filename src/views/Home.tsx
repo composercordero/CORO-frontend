@@ -1,18 +1,13 @@
 // Import Node Modules
-// import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 // Import Views
-
 // Import Components
 import RegisterDrawer from '../components/RegisterDrawer'
 import LoginDrawer from '../components/LoginDrawer'
 // Import Globals
 import { Col, Row, Space, Typography } from 'antd';
-
 // Import Types
 import { CategoryType, ConductorType } from "../types";
 // Import apiWrapper Functions
-
 import planningImage from '../assets/business-discussion.svg'
 
 type homeProps = {

@@ -16,6 +16,7 @@ const Contact = ({flashMessage}: contactProps) => {
   const navigate = useNavigate()
   const [form] = Form.useForm();
   const { TextArea } = Input;
+  
 // const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
 //     e.preventDefault();
 //     let response = await 

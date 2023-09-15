@@ -30,7 +30,6 @@ type programmingProps = {
 
 type DataIndex = keyof DataType;
 
-
 const Programming = ({flashMessage}: programmingProps) => {
 
     // SET STATES
@@ -49,7 +48,7 @@ const Programming = ({flashMessage}: programmingProps) => {
             }
         }
         fetchData();
-    }, [])
+    }, [data])
 
     const handleSearch = ( selectedKeys: string[], confirm: (param?: FilterConfirmProps) => void, dataIndex: DataIndex, ) => {
         confirm();
@@ -165,7 +164,7 @@ ellipsis: {
 },
 ];
 
-const Delete = async ({hymnalnum, service}):Promise<void> => {
+const Delete = async ({hymnalnum, service}:{ hymnalnum: string; service: string }):Promise<void> => {
     console.log(hymnalnum) 
     const token = localStorage.getItem('token')
     const response = await editProgramHymn(token!, hymnalnum!, service!)

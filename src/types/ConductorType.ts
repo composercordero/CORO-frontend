@@ -1,5 +1,6 @@
 type ConductorType = {
     id:number,
+    name?:string,
     firstName :string,
     lastName :string,
     username :string,

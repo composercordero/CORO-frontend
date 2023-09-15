@@ -7,6 +7,7 @@ import About from "./views/About";
 import Contact from "./views/Contact";
 import Dashboard from './views/Dashboard'
 import Programming from "./views/Programming";
+import Info from "./views/Info";
 // Import Components
 import { Layout, ConfigProvider } from "antd";
 import Navigation from "./components/global/Navigation";
@@ -116,8 +117,9 @@ function App() {
             
             <Route path='/contact' element={<Contact flashMessage = {flashMessage}/> }></Route>
 
-            <Route path='/programming' element={<Programming loggedInUser = {loggedInUser}/>}></Route>
+            <Route path='/programming' element={<Programming loggedInUser = {loggedInUser} flashMessage={flashMessage}/>}></Route>
 
+            <Route path='/info' element={<Info flashMessage = {flashMessage} loggedInUser = {loggedInUser}/>}></Route>
 
             <Route path='/dashboard' element={<Dashboard flashMessage = {flashMessage}/>}></Route>
             
