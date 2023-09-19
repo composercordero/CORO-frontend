@@ -38,7 +38,7 @@ setOpen(false);
 return (<>
     <Space>
     <Button type="primary" onClick={HandleCurrentHymn} >
-        Display Hymn info
+        Display Hymn information
     </Button>
     </Space>
 
