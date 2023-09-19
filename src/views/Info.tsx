@@ -8,13 +8,12 @@ import { ConductorType, CategoryType } from '../types';
 // Import apiWrapper Functions
 
 type contactProps = {
-  isLoggedIn: boolean,
   loggedInUser: ConductorType|null,
   flashMessage: (message:string|null, category: CategoryType|null) => void,
   logUserIn:(user:ConductorType) => void
 }
 
-const Contact = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: contactProps) => {
+const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
 
   const items: DescriptionsProps['items'] = [
     {
@@ -52,7 +51,7 @@ const Contact = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: contactPro
         <Col span={18} style={{ background:'#fff7f9', borderRadius:25, marginBottom:50}} >
         <Descriptions bordered column={1} items={items} />
         </Col>
-        <EditDrawer logUserIn={logUserIn} isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} />
+        <EditDrawer logUserIn={logUserIn} flashMessage = {flashMessage} />
 
       </Col>
       <Col span={12}>

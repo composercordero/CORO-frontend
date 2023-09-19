@@ -1,19 +1,17 @@
-// Import Node Modules
 // import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // Import Globals
 import { Col, Form, Input, Row, Typography } from 'antd';
 // Import Types
-import { CategoryType } from '../types';
-// Import apiWrapper Functions
+// import { CategoryType } from '../types';
 
 type contactProps = {
-  flashMessage: (message:string|null, category: CategoryType|null) => void,
+  // flashMessage: (message:string|null, category: CategoryType|null) => void,
 }
 
-const Contact = ({flashMessage}: contactProps) => {
+const Contact = ({}: contactProps) => {
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [form] = Form.useForm();
   const { TextArea } = Input;
   

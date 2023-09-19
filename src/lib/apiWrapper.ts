@@ -9,7 +9,6 @@ import HymnDataType from '../types/HymnData';
 // import ServiceType from '../types/ServiceType';
 
 const base: string = 'http://localhost:8080/api'
-// const base: string = 'https://coro-back-end.onrender.com/api'
 
 // URL to access the api
 const userEndpoint: string = '/users';

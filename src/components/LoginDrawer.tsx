@@ -12,11 +12,10 @@ import {loginUser, getMe} from '../lib/apiWrapper'
 
 type registerProps = {
     isLoggedIn: boolean,
-    loggedInUser: ConductorType|null,
     logUserIn:(user:ConductorType) => void
     flashMessage: (message:string|null, category: CategoryType|null) => void,
 }
-const LoginDrawer = ({isLoggedIn, loggedInUser, logUserIn, flashMessage}: registerProps) => {
+const LoginDrawer = ({isLoggedIn, logUserIn, flashMessage}: registerProps) => {
 
     const navigate = useNavigate();
 
@@ -33,6 +32,7 @@ const LoginDrawer = ({isLoggedIn, loggedInUser, logUserIn, flashMessage}: regist
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
         // e.preventDefault();
+        console.log(e)
         const response = await loginUser(user.username!, user.password!)
         console.log(response)
         if (response.error){

@@ -15,7 +15,6 @@ type HymnType = {
     audio_rec:string,
     tune_id:number,
     service_date?:string,
-    Response:Response,
 }
 
 export default HymnType

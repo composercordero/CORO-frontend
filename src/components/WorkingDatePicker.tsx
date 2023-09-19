@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { DatePicker, Button, Form, Input, Col, Row, Space, InputNumber } from 'antd';
 import DisplayHymn from './DisplayHymn';
 import { CategoryType, HymnType } from '../types';
-import { createHymnById } from '../lib/apiWrapper';
 
 type searchProps = {
     flashMessage: (message:string|null, category:CategoryType|null)=> void
@@ -50,17 +49,17 @@ const SearchHymn = ({flashMessage}: searchProps) => {
         console.log(programHymn)
     }
 
-    const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
-        // e.preventDefault();
-        const token = localStorage.getItem('token')
-        const response = await createHymnById(token!, programHymn.hymnal_number!)
-        // const program_response = await programHymn(token, programHymn.hymnal_number!, programHymn.service_date!)
-        console.log(response)
-        if (response.error){
-            flashMessage(response.error, 'error')
-        } else{
-            flashMessage('Hymn added to your program!','success')
-        }}
+    // const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
+    //     // e.preventDefault();
+    //     const token = localStorage.getItem('token')
+    //     const response = await createHymnById(token!, programHymn.hymnal_number!)
+    //     // const program_response = await programHymn(token, programHymn.hymnal_number!, programHymn.service_date!)
+    //     console.log(response)
+    //     if (response.error){
+    //         flashMessage(response.error, 'error')
+    //     } else{
+    //         flashMessage('Hymn added to your program!','success')
+    //     }}
 
 return(<>
         

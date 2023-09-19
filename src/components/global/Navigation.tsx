@@ -6,7 +6,7 @@ import {
     UserOutlined
 
 } from '@ant-design/icons';
-import { Affix, Layout, Menu, Space, Typography, theme } from 'antd';
+import { Affix, Layout, Menu, Space, Typography } from 'antd';
 
 type navigationProps ={
     nav: (key:string)=>void,

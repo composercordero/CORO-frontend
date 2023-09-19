@@ -8,7 +8,7 @@ import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import SearchHymn from '../components/SearchHymn';
 // import DisplayHymn from '../components/DisplayHymn';
-import {CategoryType} from '../types';
+import {CategoryType, HymnType} from '../types';
 import { ConductorType } from '../types';
 import { getUserPrograms, editProgramHymn } from '../lib/apiWrapper';
 import HymnDataType from '../types/HymnData';

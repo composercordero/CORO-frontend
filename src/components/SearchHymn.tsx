@@ -39,15 +39,13 @@ const SearchHymn = ({flashMessage, setUpdateTable, updateTable}: searchProps) =>
         // console.log(e.target.value)
     }
 
-    const dateChange = (date:Date|null, dateString:string) => {
+    const dateChange = (dateString:string) => {
         programHymn.service_date = dateString
-        // console.log(date)
-        // console.log(programHymn.service_date)
-        // console.log(programHymn)
+        console.log(dateString)
     }
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
-        // e.preventDefault();
+        console.log(e)
         const token = localStorage.getItem('token')
         const response = await createHymnById(token!, programHymn.hymnal_number!)
         const program_response = await programHymnToServiceByDate(token!, programHymn.hymnal_number!, programHymn.service_date!)
@@ -100,7 +98,7 @@ return(<>
             <Col span={4}>
             <Form.Item label="DatePicker">
                     <DatePicker 
-                    onChange={() => dateChange} 
+                    onChange={(date, dateString) => dateChange(dateString)} 
                 />
                 </Form.Item>
             </Col>

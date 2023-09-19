@@ -1,5 +1,6 @@
-import { Col, Row, Typography } from 'antd';
+import { Col, Row, Typography, Divider, Steps } from 'antd';
 import workingFromHome from '../assets/girl-working-from-home.svg'
+import successImage from '../assets/success.svg'
 
 type dashboardProps = {
 }

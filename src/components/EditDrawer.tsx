@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Form, Input, Row, Space, Layout } from 'antd';
 import ConductorType from '../types/ConductorType';
@@ -7,12 +8,10 @@ import CategoryType from '../types/CategoryType';
 import {createUser, loginUser} from '../lib/apiWrapper'
 
 type registerProps = {
-    isLoggedIn: boolean,
-    loggedInUser: ConductorType|null,
     flashMessage: (message:string|null, category: CategoryType|null) => void,
     logUserIn:(user:ConductorType) => void
 }
-const RegisterDrawer = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: registerProps) => {
+const RegisterDrawer = ({logUserIn, flashMessage}: registerProps) => {
 
     const navigate = useNavigate();
 
