@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Form, Input, Row, Space, Layout } from 'antd';
 import ConductorType from '../types/ConductorType';
@@ -60,7 +61,7 @@ const RegisterDrawer = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: reg
 return (<>
     
     <Button type="primary" onClick={showDrawer} icon={<PlusOutlined />}>
-    Update Your Account
+    Create a New Account
     </Button>
 
     <Drawer
@@ -78,12 +79,12 @@ return (<>
         </Space>
     }
     >
-   <Form 
-      form={form}
-      name="register"
-      onFinish={handleFormSubmit}
-      layout="vertical"
-      >
+    <Form 
+    form={form}
+    name="register"
+    onFinish={handleFormSubmit}
+    layout="vertical">
+        
         <Row gutter={16}>
         <Col span={12}>
             <Form.Item
@@ -111,6 +112,42 @@ return (<>
                 onChange={handleInputChange} 
                 value={userFormData.lastName}
             />
+            </Form.Item>
+        </Col>
+        </Row>
+
+        <Row gutter={16}>
+        <Col span={12}>
+            <Form.Item
+            name="password"
+            label="Password"
+            rules={[{ required: true, message: 'Please input your password!', },]}
+            hasFeedback
+            >
+            <Input.Password 
+                name="password"
+                onChange={handleInputChange} 
+                value={userFormData.password}/>
+            </Form.Item>
+        </Col>
+        <Col span={12}>
+            <Form.Item
+            name="confirmPassword"
+            label="Confirm Password"
+            dependencies={['password']}
+            hasFeedback
+            rules={[ { required: true, message: 'Please confirm your password!', },
+            ({ getFieldValue }) => ({
+                validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                }
+                return Promise.reject(new Error('The new password that you entered do not match!'));
+                },
+            }),
+            ]}
+            >
+            <Input.Password />
             </Form.Item>
         </Col>
         </Row>

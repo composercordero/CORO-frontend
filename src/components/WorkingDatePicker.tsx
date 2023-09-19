@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import type { DatePickerProps } from 'antd';
 import { DatePicker, Button, Form, Input, Col, Row, Space, InputNumber } from 'antd';
 import DisplayHymn from './DisplayHymn';
 import { CategoryType, HymnType } from '../types';
@@ -38,11 +37,12 @@ const SearchHymn = ({flashMessage}: searchProps) => {
         console.log(e.target.value)
     }
 
-    const dateChange = (date,dateString) => {
+    const dateChange = (dateString:string) => {
         // const dateString = date?.toString() || '' ;
         programHymn.service_date = dateString
         console.log(programHymn.service_date)
         console.log(programHymn)
+        console.log(dateString)
     }
 
     const numberChange=(value:number) => {
@@ -97,7 +97,7 @@ return(<>
                 min={1} 
                 max={853} 
                 value={programHymn.hymnal_number} 
-                onChange={numberChange} 
+                onChange={() => numberChange} 
                 />
                 </Form.Item>
             </Col>
@@ -105,7 +105,7 @@ return(<>
             <Col span={4}>
                 <Form.Item label="DatePicker">
                     <DatePicker 
-                    onChange={(date, dateString) => dateChange(date,dateString)} 
+                    onChange={(date, dateString) => dateChange(dateString)} 
                 />
                 </Form.Item>
             </Col>
@@ -116,7 +116,7 @@ return(<>
 		        Add Hymn
 		    </Button>
 
-            <DisplayHymn></DisplayHymn>
+            <DisplayHymn programHymn={programHymn} flashMessage={flashMessage}></DisplayHymn>
         </Space>
         
         </Form>

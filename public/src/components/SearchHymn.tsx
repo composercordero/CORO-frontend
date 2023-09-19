@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import type { DatePickerProps } from 'antd';
-import { DatePicker, Button, Form, Input, Col, Row, Space, InputNumber } from 'antd';
-import DisplayHymn from '../DisplayHymn';
-import { CategoryType, HymnType } from '../../types';
-import { createHymnById, programHymn } from '../../lib/apiWrapper';
-
+import { DatePicker, Button, Form, Input, Col, Row, Space } from 'antd';
+import DisplayHymn from './DisplayHymn';
+import { CategoryType, HymnType } from '../types';
+import { createHymnById, programHymnToServiceByDate } from '../lib/apiWrapper';
 
 type searchProps = {
-    flashMessage: (message:string|null, category:CategoryType|null)=> void
+    flashMessage: (message:string|null, category:CategoryType|null)=> void,
+    setUpdateTable : (arg0: boolean) => void,
+    updateTable:boolean,
 }
 
-const SearchHymn = ({flashMessage}: searchProps) => {
+const SearchHymn = ({flashMessage, setUpdateTable, updateTable}: searchProps) => {
 
     const [form] = Form.useForm();
     
@@ -35,33 +35,28 @@ const SearchHymn = ({flashMessage}: searchProps) => {
 
     const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>):void => {
         setProgramHymn({...programHymn, [e.target.name]: e.target.value})
-        console.log(e.target.name)
-        console.log(e.target.value)
+        // console.log(e.target.name)
+        // console.log(e.target.value)
     }
 
-    const dateChange = (date:Date|null) => {
-        const dateString = date?.toString() || '' ;
-        setProgramHymn({...programHymn, 'service_date': dateString})
-        console.log(programHymn)
-        console.log(dateString)
-    }
-};
-
-    const numberChange=(value:number) => {
-        setProgramHymn({...programHymn, 'hymnal_number': value + 1})
-        console.log(programHymn)
+    const dateChange = (date:Date|null, dateString:string) => {
+        programHymn.service_date = dateString
+        // console.log(date)
+        // console.log(programHymn.service_date)
+        // console.log(programHymn)
     }
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
         // e.preventDefault();
         const token = localStorage.getItem('token')
-        const response = await createHymnById(token, programHymn.hymnal_number!)
-        const program_response = await programHymn(token, programHymn.hymnal_number!, programHymn.service_date!)
-        console.log(response)
+        const response = await createHymnById(token!, programHymn.hymnal_number!)
+        const program_response = await programHymnToServiceByDate(token!, programHymn.hymnal_number!, programHymn.service_date!)
+        console.log(program_response)
         if (response.error){
             flashMessage(response.error, 'error')
         } else{
             flashMessage('Hymn added to your program!','success')
+            setUpdateTable(!updateTable)
         }
     }
 
@@ -70,7 +65,7 @@ return(<>
         <Form 
             form={form}
             name="register"
-            onFinish={()=> console.log('finish')}
+            onFinish={handleFormSubmit}
             layout="vertical">
             
         <Row gutter={16}>
@@ -78,7 +73,6 @@ return(<>
                 <Form.Item
                 name="title"
                 label="Title"
-                rules={[{ required: true, message: 'Please enter the hymn title' }]}
                 >
                 <Input 
                     name="title"
@@ -90,25 +84,23 @@ return(<>
             </Col>
             <Col span={4}>
                 <Form.Item
-                name="number"
-                label="Number"
-                rules={[ { type: 'number', message: 'The input is not valid number!', },
-                { required: true, message: 'Please input your E-mail!', }, ]}
-                >
-                <InputNumber
-                name='number'
-                min={1} 
-                max={853} 
-                value={programHymn.hymnal_number} 
-                onChange={numberChange} 
+                    name="hymnal_number"
+                    label="Number"
+                    rules={[{ required: true, message: 'Please enter the hymn number' }]}
+                    >
+                <Input 
+                    name="hymnal_number"
+                    placeholder="Hymn number"
+                    onChange={handleInputChange} 
+                    value={programHymn.hymnal_number} 
                 />
                 </Form.Item>
             </Col>
 
             <Col span={4}>
-                <Form.Item label="DatePicker">
+            <Form.Item label="DatePicker">
                     <DatePicker 
-                    onChange={(date, dateString) => dateChange(date, dateString)} 
+                    onChange={() => dateChange} 
                 />
                 </Form.Item>
             </Col>
@@ -119,7 +111,7 @@ return(<>
 		        Add Hymn
 		    </Button>
 
-            <DisplayHymn></DisplayHymn>
+            <DisplayHymn flashMessage={flashMessage} programHymn={programHymn}></DisplayHymn>
         </Space>
         
         </Form>
