@@ -30,9 +30,9 @@ const Home = ({logUserIn, isLoggedIn, loggedInUser, flashMessage}: homeProps) =>
           </Typography.Paragraph>
 
           <Space >
-          <RegisterDrawer logUserIn={logUserIn} isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} />
+          <RegisterDrawer logUserIn={logUserIn} flashMessage = {flashMessage} />
 
-          <LoginDrawer logUserIn={logUserIn} isLoggedIn={isLoggedIn} loggedInUser = {loggedInUser} flashMessage = {flashMessage} />
+          <LoginDrawer logUserIn={logUserIn} isLoggedIn={isLoggedIn}  flashMessage = {flashMessage} />
           </Space>
 
         </Col>

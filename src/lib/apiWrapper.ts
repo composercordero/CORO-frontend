@@ -8,7 +8,7 @@ import OrganizationType from '../types/OrganizationType';
 import HymnDataType from '../types/HymnData';
 // import ServiceType from '../types/ServiceType';
 
-const base: string = 'http://localhost:8080/api'
+const base: string = 'https://coro-c0530.web.app/api'
 
 // URL to access the api
 const userEndpoint: string = '/users';

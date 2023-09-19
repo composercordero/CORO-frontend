@@ -116,11 +116,11 @@ function App() {
 
             <Route path='/about' element={<About /> }></Route>
             
-            <Route path='/contact' element={<Contact flashMessage = {flashMessage}/> }></Route>
+            <Route path='/contact' element={<Contact /> }></Route>
 
             <Route path='/programming' element={<Programming loggedInUser = {loggedInUser} flashMessage={flashMessage}/>}></Route>
 
-            <Route path='/info' element={<Info isLoggedIn={isLoggedIn} flashMessage = {flashMessage} loggedInUser = {loggedInUser} logUserIn={logUserIn}/>}></Route>
+            <Route path='/info' element={<Info flashMessage = {flashMessage} loggedInUser = {loggedInUser} logUserIn={logUserIn}/>}></Route>
 
             <Route path='/dashboard' element={<Dashboard />}></Route>
             
