@@ -172,11 +172,11 @@ async function createAddress(newAddressData:Partial<AddressType>):Promise<APIRes
 
 // CREATE ORGANIZATION ------------------------------------------------------------------
 
-async function createOrganization(newOrganizationData:Partial<OrganizationType>):Promise<APIResponse<OrganizationType>> {
+async function createOrganization(token:string, newOrganizationData:Partial<OrganizationType>):Promise<APIResponse<OrganizationType>> {
     let error;
     let data;
     try{
-        const response = await apiClientNoAuth().post(organizationEndpoint, newOrganizationData)
+        const response = await apiClientTokenAuth(token).post(organizationEndpoint, newOrganizationData)
         data = response.data
         console.log('Response data:', data)
     } catch(err) {

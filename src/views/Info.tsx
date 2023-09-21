@@ -1,5 +1,6 @@
 // Import Views
 import EditDrawer from '../components/EditDrawer';
+import CreateOrgDrawer from '../components/CreateOrgDrawer';
 // Import Globals
 import { Col, Descriptions, DescriptionsProps, Row, Typography } from 'antd';
 import Team from '../assets/office-employee-making-checklist.svg'
@@ -52,6 +53,7 @@ const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
         <Descriptions bordered column={1} items={items} />
         </Col>
         <EditDrawer logUserIn={logUserIn} flashMessage = {flashMessage} />
+        <CreateOrgDrawer flashMessage = {flashMessage}/>
 
       </Col>
       <Col span={12}>

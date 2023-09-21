@@ -5,7 +5,6 @@ type OrganizationType = {
     email:string,
     website:string,
     conductor_id:number,
-    // choir?:string,
 }
 
 export default OrganizationType
