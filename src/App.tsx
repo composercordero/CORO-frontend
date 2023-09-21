@@ -31,7 +31,7 @@ function App() {
     navigate(key)}
 
   // MENU COLLAPSING 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const handleCollapsed = (): void => {
     setCollapsed(!collapsed)

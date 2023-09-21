@@ -1,5 +1,5 @@
 import { Col, Row, Typography, Table, Tooltip } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteOutlined  } from '@ant-design/icons';
 import { useRef, useState, useEffect } from 'react';
 import Highlighter from "react-highlight-words";
 import type { InputRef } from 'antd';
@@ -128,10 +128,10 @@ const Programming = ({flashMessage}: programmingProps) => {
 
     const columns: ColumnsType<DataType> = [
     {
-        title: 'Service Date',
+        title: 'Date',
         dataIndex: 'service',
         key: 'service',
-        width: '10%',
+        // width: '10%',
         ...getColumnSearchProps('service'),
         sorter: (a, b) => moment(a.service).unix() - moment(b.service).unix()
     },
@@ -139,7 +139,7 @@ const Programming = ({flashMessage}: programmingProps) => {
         title: 'Number',
         dataIndex: 'hymnalnum',
         key: 'hymnalnum',
-        width: '10%',
+        // width: '10%',
         ...getColumnSearchProps('hymnalnum'),
         sorter: (a, b) => a.hymnalnum - b.hymnalnum
     },
@@ -147,11 +147,11 @@ const Programming = ({flashMessage}: programmingProps) => {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        width: '30%',
+        // width: '30%',
         ...getColumnSearchProps('title'),
     },
     {
-        title: 'Tune Name',
+        title: 'Tune',
         dataIndex: 'tune',
         key: 'tune',
         width: '15%',
@@ -161,28 +161,28 @@ const Programming = ({flashMessage}: programmingProps) => {
         title: 'Key',
         dataIndex: 'key_mus',
         key: 'key_mus',
-        width: '7%',
+        // width: '7%',
         ...getColumnSearchProps('key_mus'),
     },
-    {
-        title: 'Topics',
-        dataIndex: 'topics',
-        key: 'topics',
-        ...getColumnSearchProps('topics'),
-        width: '20%',
-    ellipsis: {
-        showTitle: false,
-        },
-        render: (topics) => (
-        <Tooltip placement="topLeft" title={topics}>
-            {topics}
-        </Tooltip>
-        ),
-    },
+    // {
+    //     title: 'Topics',
+    //     dataIndex: 'topics',
+    //     key: 'topics',
+    //     ...getColumnSearchProps('topics'),
+    //     width: '20%',
+    // ellipsis: {
+    //     showTitle: false,
+    //     },
+    //     render: (topics) => (
+    //     <Tooltip placement="topLeft" title={topics}>
+    //         {topics}
+    //     </Tooltip>
+    //     ),
+    // },
     {
         key: 'action',
         title: 'Action',
-        render: (currentRow) => <Button type='primary' onClick={()=> Delete(currentRow)}>Delete</Button>,
+        render: (currentRow) => <Button type='primary' onClick={()=> Delete(currentRow)}><DeleteOutlined /></Button>,
     },
     ];
 
@@ -214,7 +214,7 @@ return (<>
 
 <Row style={{ background:'#d980a2', borderRadius:25, padding: 25}}>
     <Col span={24} style={{ background:'#d980a2', borderRadius:25, padding: 25}} >
-    <Table columns={columns} dataSource={data} />
+    <Table columns={columns} dataSource={data}/>
     </Col>
 </Row>
 </>)

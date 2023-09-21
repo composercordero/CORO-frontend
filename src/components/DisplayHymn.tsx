@@ -25,7 +25,7 @@ const HandleCurrentHymn = async ():Promise<void> => {
     } else{
         setCurrentHymn(response.data!)
         setItems(display.data!)
-        console.log(currentHymn)
+        // console.log(currentHymn)
         setSize('large');
         setOpen(true);
     }
