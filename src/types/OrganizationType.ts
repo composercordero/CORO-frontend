@@ -4,6 +4,7 @@ type OrganizationType = {
     phone:string,
     email:string,
     website:string,
+    choirName:string,
     conductor_id:number,
 }
 

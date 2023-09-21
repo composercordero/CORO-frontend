@@ -1,8 +1,7 @@
 type ChoirType = {
     id:number,
-    name:string,
+    choirName:string,
     organization_id:number,
-    // hymns:string,
 }
 
 export default ChoirType

@@ -226,11 +226,11 @@ async function deleteOrganizationById(token:string, organizationId:string|number
 }
 // CREATE CHOIR ------------------------------------------------------------------
 
-async function createChoir(newChoirData:Partial<ChoirType>):Promise<APIResponse<ChoirType>> {
+async function createChoir(token:string, newChoirData:Partial<OrganizationType>):Promise<APIResponse<ChoirType>> {
     let error;
     let data;
     try{
-        const response = await apiClientNoAuth().post(choirsEndpoint, newChoirData)
+        const response = await apiClientTokenAuth(token).post(choirsEndpoint, newChoirData)
         data = response.data
         console.log('Response data:', data)
     } catch(err) {

@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Form, Input, Row, Space } from 'antd';
 import OrganizationType from '../types/OrganizationType';
 import CategoryType from '../types/CategoryType';
-import {createOrganization} from '../lib/apiWrapper'
+import {createChoir, createOrganization} from '../lib/apiWrapper'
 
 type registerProps = {
     flashMessage: (message:string|null, category: CategoryType|null) => void,
@@ -18,6 +18,7 @@ const CreateOrgDrawer = ({flashMessage}: registerProps) => {
             phone:'',
             email:'',
             website:'',
+            choirName:'',
         }
     );
 
@@ -29,6 +30,8 @@ const CreateOrgDrawer = ({flashMessage}: registerProps) => {
         e.preventDefault();
         let token = localStorage.getItem('token')
         let response = await createOrganization(token!, orgFormData)
+        let responseChoir = await createChoir(token!, orgFormData)
+        console.log(responseChoir)
         if (response.error){
             flashMessage(response.error, 'error')
         } else {
@@ -93,7 +96,7 @@ return (<>
             >
             <Input 
                 name="phone"
-                placeholder="Please enter the organization\'s phone number" 
+                placeholder="Please enter the organization's phone number" 
                 onChange={handleInputChange} 
                 value={orgFormData.phone}
             />
@@ -139,7 +142,7 @@ return (<>
         </Row>
 
         <Row gutter={16}>
-        <Col span={24}>
+        <Col span={12}>
             <Form.Item
             name="website"
             label="Website"
@@ -150,6 +153,20 @@ return (<>
                 placeholder="Please enter the organization's website" 
                 onChange={handleInputChange} 
                 value={orgFormData.website}
+            />
+            </Form.Item>
+        </Col>
+        <Col span={12}>
+            <Form.Item
+            name="choirName"
+            label="Choir"
+            rules={[{ required: true, message: 'Please enter the choir\'s name' }]}
+            >
+            <Input 
+                name="choirName"
+                placeholder="Please enter the choir's website" 
+                onChange={handleInputChange} 
+                value={orgFormData.choirName}
             />
             </Form.Item>
         </Col>

@@ -2,7 +2,7 @@
 import EditDrawer from '../components/EditDrawer';
 import CreateOrgDrawer from '../components/CreateOrgDrawer';
 // Import Globals
-import { Col, Descriptions, DescriptionsProps, Row, Typography } from 'antd';
+import { Col, Descriptions, DescriptionsProps, Row, Space, Typography } from 'antd';
 import Team from '../assets/office-employee-making-checklist.svg'
 // Import Types
 import { ConductorType, CategoryType } from '../types';
@@ -52,8 +52,10 @@ const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
         <Col span={18} style={{ background:'#fff7f9', borderRadius:25, marginBottom:50}} >
         <Descriptions bordered column={1} items={items} />
         </Col>
+        <Space >
         <EditDrawer logUserIn={logUserIn} flashMessage = {flashMessage} />
-        <CreateOrgDrawer flashMessage = {flashMessage}/>
+        <CreateOrgDrawer flashMessage = {flashMessage} />
+        </Space>
 
       </Col>
       <Col span={12}>
