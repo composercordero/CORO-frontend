@@ -11,10 +11,9 @@ import { ConductorType, CategoryType } from '../types';
 type contactProps = {
   loggedInUser: ConductorType|null,
   flashMessage: (message:string|null, category: CategoryType|null) => void,
-  logUserIn:(user:ConductorType) => void
 }
 
-const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
+const Info = ({loggedInUser, flashMessage}: contactProps) => {
 
   const items: DescriptionsProps['items'] = [
     {
@@ -53,7 +52,7 @@ const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
         <Descriptions bordered column={1} items={items} />
         </Col>
         <Space >
-        <EditDrawer logUserIn={logUserIn} flashMessage = {flashMessage} />
+        <EditDrawer loggedInUser = {loggedInUser} flashMessage = {flashMessage} />
         <CreateOrgDrawer flashMessage = {flashMessage} />
         </Space>
 
@@ -65,4 +64,4 @@ const Contact = ({logUserIn, loggedInUser, flashMessage}: contactProps) => {
     </>)
 }
 
-export default Contact
+export default Info

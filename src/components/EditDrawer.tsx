@@ -1,32 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Form, Input, Row, Space, Layout } from 'antd';
 import ConductorType from '../types/ConductorType';
 import CategoryType from '../types/CategoryType';
-import {createUser, loginUser} from '../lib/apiWrapper'
+import { editUser } from '../lib/apiWrapper'
 
 type registerProps = {
     flashMessage: (message:string|null, category: CategoryType|null) => void,
-    logUserIn:(user:ConductorType) => void
+    loggedInUser: ConductorType|null,
+
 }
-const RegisterDrawer = ({logUserIn, flashMessage}: registerProps) => {
+const RegisterDrawer = ({loggedInUser, flashMessage}: registerProps) => {
 
     const navigate = useNavigate();
 
     // FORM DATA -------------------------------------------
     const [userFormData, setUserFormData] = useState<Partial<ConductorType>>(
         {
-            id:0,
-            firstName :'',
-            lastName :'',
-            username :'',
-            email :'',
-            password :'',
-            date_created:'',
-            token:'',
-            token_expiration:'',
+            firstName: loggedInUser?.firstName, 
+            lastName: loggedInUser?.lastName,
+            email: loggedInUser?.email,
+            username: loggedInUser?.username,
         }
     );
 
@@ -36,16 +32,13 @@ const RegisterDrawer = ({logUserIn, flashMessage}: registerProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
-        let response = await createUser(userFormData)
+        let token = localStorage.getItem('token')
+        let response = await editUser(token!, userFormData)
         if (response.error){
             flashMessage(response.error, 'error')
         } else {
-            const newUser = response.data
-            let loginResponse = await loginUser(userFormData.username!, userFormData.password!)
-            localStorage.setItem('token', loginResponse.data?.token!)
-            localStorage.setItem('tokenExp', loginResponse.data?.token_exp!)
-            logUserIn(newUser!);
-            navigate('/dashboard')
+            flashMessage('You\'ve successfully updated your information', 'success')
+            setOpen(false)
         }
     }
 
@@ -63,7 +56,7 @@ return (<>
     </Button>
 
     <Drawer
-    title="Create a conductor account"
+    title="Edit conductor account"
     width={720}
     onClose={onClose}
     open={open}
@@ -82,6 +75,11 @@ return (<>
       name="register"
       onFinish={handleFormSubmit}
       layout="vertical"
+      initialValues={{ 
+        firstName: loggedInUser?.firstName, 
+        lastName: loggedInUser?.lastName,
+        email: loggedInUser?.email,
+        username: loggedInUser?.username, }}
       >
         <Row gutter={16}>
         <Col span={12}>
@@ -102,11 +100,11 @@ return (<>
             <Form.Item
             name="lastName"
             label="Last Name"
-            rules={[{ required: true, message: 'Please enter user name' }]}
+            rules={[{ required: true, message: 'Please enter user last name' }]}
             >
             <Input 
                 name="lastName"
-                placeholder="Please enter your name" 
+                placeholder="Please enter your last name" 
                 onChange={handleInputChange} 
                 value={userFormData.lastName}
             />
@@ -124,35 +122,13 @@ return (<>
             >
             <Input 
                 name="email"
+                placeholder="Please enter your email" 
                 onChange={handleInputChange} 
                 value={userFormData.email}
             />
             </Form.Item>
         </Col>
         <Col span={12}>
-            <Form.Item
-            name="confirmEmail"
-            label="Confirm E-mail"
-            dependencies={['email']}
-            hasFeedback
-            rules={[ { required: true, message: 'Please confirm your e-mail!', },
-            ({ getFieldValue }) => ({
-                validator(_, value) {
-                if (!value || getFieldValue('email') === value) {
-                    return Promise.resolve();
-                }
-                return Promise.reject(new Error('The new e-mail that you entered do not match!'));
-                },
-            }),
-            ]}
-            >
-            <Input />
-            </Form.Item>
-        </Col>
-        </Row>
-
-        <Row gutter={16}>
-        <Col span={24}>
             <Form.Item
             name="username"
             label="Username"

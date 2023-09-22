@@ -79,7 +79,7 @@ async function loginUser(username:string, password:string):Promise<APIResponse<T
 
 // EDIT USER ------------------------------------------------------------------
 
-async function editUser(UserData:Partial<ConductorType>, token:string):Promise<APIResponse<ConductorType>> {
+async function editUser(token:string, UserData:Partial<ConductorType>):Promise<APIResponse<ConductorType>> {
     let error;
     let data;
     try{

@@ -31,7 +31,7 @@ type programmingProps = {
 
 type DataIndex = keyof DataType;
 
-const Programming = ({flashMessage}: programmingProps) => {
+const Programming = ({flashMessage, loggedInUser}: programmingProps) => {
 
     // SET STATES ----------------------------------------------------
 
@@ -190,7 +190,6 @@ const Programming = ({flashMessage}: programmingProps) => {
 
 
     const Delete = async ({hymnalnum, service}:{ hymnalnum: string; service: string }):Promise<void> => {
-        console.log(hymnalnum) 
         const token = localStorage.getItem('token')
         const response = await editProgramHymn(token!, hymnalnum!, service!)
         // console.log(response)

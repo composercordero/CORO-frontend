@@ -120,7 +120,7 @@ function App() {
 
             <Route path='/programming' element={<Programming loggedInUser = {loggedInUser} flashMessage={flashMessage}/>}></Route>
 
-            <Route path='/info' element={<Info flashMessage = {flashMessage} loggedInUser = {loggedInUser} logUserIn={logUserIn}/>}></Route>
+            <Route path='/info' element={<Info flashMessage = {flashMessage} loggedInUser = {loggedInUser}/>}></Route>
 
             <Route path='/dashboard' element={<Dashboard />}></Route>
             

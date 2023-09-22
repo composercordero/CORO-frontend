@@ -31,7 +31,6 @@ const CreateOrgDrawer = ({flashMessage}: registerProps) => {
         let token = localStorage.getItem('token')
         let response = await createOrganization(token!, orgFormData)
         let responseChoir = await createChoir(token!, orgFormData)
-        console.log(responseChoir)
         if (response.error){
             flashMessage(response.error, 'error')
         } else {
