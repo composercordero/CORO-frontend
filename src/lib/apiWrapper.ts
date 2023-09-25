@@ -8,8 +8,8 @@ import OrganizationType from '../types/OrganizationType';
 import HymnDataType from '../types/HymnData';
 // import ServiceType from '../types/ServiceType';
 
-const base: string = 'http://127.0.0.1:8080/api'
-// const base: string = 'https://coro-back-end.onrender.com/api'
+// const base: string = 'http://127.0.0.1:8080/api'
+const base: string = 'https://coro-back-end.onrender.com/api'
 
 // URL to access the api
 const userEndpoint: string = '/users';
